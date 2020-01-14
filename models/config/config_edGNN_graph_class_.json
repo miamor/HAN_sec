@@ -1,0 +1,8 @@
+{
+    "layer_type": "edGNNLayer",
+    "layer_params": {
+        "n_units": 64,
+        "activation": "relu",
+	    "n_hidden_layers": 3
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "layer_type": "edGNNLayer",
+    "node_dim": 1,
+    "edge_dim": 1,
+    "layer_params": {
+        "n_units": [64,64],
+        "activation": ["relu", "relu"]
+    }
+}
