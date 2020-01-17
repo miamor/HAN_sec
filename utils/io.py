@@ -4,6 +4,7 @@ import json
 import uuid
 import dgl
 from time import gmtime, strftime
+import os
 
 def print_graph_stats(g, name='Graph'):
     if isinstance(g, dgl.DGLGraph):
@@ -68,9 +69,11 @@ def save_results(result, path='', verbose=False):
         json.dump(results, outfile, indent=4)
 
 
-def create_default_path():
+def create_default_path(dirname):
     # path = 'checkpoints/checkpoint_' + str(uuid.uuid4()) + '.pt'
-    path = 'checkpoints/checkpoint__'+strftime("%Y-%m-%d_%H-%M-%S", gmtime())
+    if not os.path.isdir(dirname):
+        os.makedirs(dirname)
+    path = dirname+'/checkpoint__'+strftime("%Y-%m-%d_%H-%M-%S")
     return path
 
 

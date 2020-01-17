@@ -20,6 +20,7 @@ from utils.io import print_graph_stats, read_params, create_default_path, remove
 from app import App
 
 from utils.constants import *
+import time
 
 
 def load_dataset(args, cuda):
@@ -32,11 +33,8 @@ def load_dataset(args, cuda):
     return data
 
 
-def run_app(args, cuda):
+def run_app(args, data, cuda):
     # print_graph_stats(data[GRAPH])
-
-    default_path = create_default_path()
-    print('\n*** Set default saving/loading path to:', default_path)
 
     config_params = read_params(args.config_fpath, verbose=True)
 
@@ -44,13 +42,20 @@ def run_app(args, cuda):
     # 1. Training
     ###########################
     if args.action == "train":
+        now = time.strftime("%Y-%m-%d_%H-%M-%S")
+
+        odir = 'output/'+now
+        default_path = create_default_path(odir+'/checkpoints')
+        print('\n*** Set default saving/loading path to:', default_path)
+
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
                            'weight_decay': args.weight_decay, 'batch_size': args.batch_size, 'cuda': cuda}
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
         print('\n*** Start training ***\n')
         app.train(default_path, k_fold=args.k_fold)
         app.test(default_path)
+        # remove_model(default_path)
 
     ###########################
     # 2. Testing
@@ -58,14 +63,24 @@ def run_app(args, cuda):
     if args.action == "test" and args.checkpoint_file is not None:
         print('\n*** Start testing ***\n')
         learning_config = {'cuda': cuda}
+        # odir = 'output/2020-01-14_15-04-01'
+        odir = args.out_dir
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
         app.test(args.checkpoint_file)
 
-    ###########################
-    # 3. Delete model
-    ###########################
-    # remove_model(default_path)
+
+def run_app_2(args, data, cuda):
+    config_params = read_params(args.config_fpath, verbose=True)
+
+    if args.checkpoint_file is not None:
+        print('\n*** Start testing ***\n')
+        learning_config = {'cuda': cuda}
+        # odir = 'output/2020-01-14_15-04-01'
+        odir = args.out_dir
+        app = App(data, model_config=config_params[0], learning_config=learning_config,
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
+        app.test_on_data(args.checkpoint_file)
 
 
 if __name__ == "__main__":
@@ -76,7 +91,6 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--input_data_file", default='data/data.json')
     parser.add_argument("-p", "--input_data_folder", default='data/pickle')
     parser.add_argument("-f", "--folder", default=None)
-    parser.add_argument("-o", "--out_folder", default=None)
     parser.add_argument("-c", "--config_fpath",
                         default='models/config/config_edGNN_graph_class.json')
     parser.add_argument("-v", "--vocab_path", default='data/vocab.txt')
@@ -88,7 +102,7 @@ if __name__ == "__main__":
 
     parser.add_argument("-g", "--gpu", type=int, default=0, help="gpu")
 
-    parser.add_argument("action", choices={'train', 'test', 'prep'})
+    parser.add_argument("action", choices={'train', 'test', 'test_data', 'prep'})
 
     parser.add_argument("--batch_size", type=int, default=32,
                         help="batch size (only for graph classification)")
@@ -102,6 +116,7 @@ if __name__ == "__main__":
 
     # parser.add_argument('test', action='store_true', default=False)
     parser.add_argument("-cp", "--checkpoint_file", default=None)
+    parser.add_argument("-o", "--out_dir", default=None)
 
     parser.add_argument("-sj", "--save_json", type=bool, default=True)
     parser.add_argument("--encode_edge_data", type=bool, default=True)
@@ -123,4 +138,7 @@ if __name__ == "__main__":
     ###########################
     # Run the app
     ###########################
-    run_app(args, cuda)
+    if args.action == "test_data":
+        run_app_2(args, data, cuda)
+    else:
+        run_app(args, data, cuda)

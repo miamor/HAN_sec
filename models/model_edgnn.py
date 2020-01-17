@@ -7,9 +7,6 @@ import torch
 import numpy as np
 import scipy.sparse as sp
 
-from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
@@ -72,33 +69,34 @@ class Model(nn.Module):
         #######################
         # Edge embeddings
         #######################
-        if 'edge_dim' in self.config_params:
-            edge_dim = self.config_params['edge_dim']
-            # self.embed_edges = nn.Embedding(self.n_rels, edge_dim)
-        elif 'edge_one_hot' in self.config_params and self.config_params['edge_one_hot'] is True:
-            edge_dim = self.n_rels
-            self.embed_edges = torch.eye(edge_dim, edge_dim)
-            if self.is_cuda:
-                self.embed_edges = self.embed_edges.cuda()
-        else:
-            edge_dim = self.n_rels
-            self.embed_edges = None
+        # if 'edge_dim' in self.config_params:
+        #     edge_dim = self.config_params['edge_dim']
+        #     # self.embed_edges = nn.Embedding(self.n_rels, edge_dim)
+        # elif 'edge_one_hot' in self.config_params and self.config_params['edge_one_hot'] is True:
+        #     edge_dim = self.n_rels
+        #     self.embed_edges = torch.eye(edge_dim, edge_dim)
+        #     if self.is_cuda:
+        #         self.embed_edges = self.embed_edges.cuda()
+        # else:
+        #     edge_dim = self.n_rels
+        #     self.embed_edges = None
 
         #######################
         # Node embeddings
         #######################
-        if 'node_dim' in self.config_params:
-            node_dim = self.config_params['node_dim']
-            # self.embed_nodes = nn.Embedding(self.n_entities, node_dim)
-        elif 'node_one_hot' in self.config_params and self.config_params['node_one_hot'] is True:
-            node_dim = self.n_entities
-            self.embed_nodes = torch.eye(self.n_entities, self.n_entities)
-            if self.is_cuda:
-                self.embed_nodes = self.embed_nodes.cuda()
-        else:
-            node_dim = self.n_entities
-            # print('node_dim', node_dim)
-            self.embed_nodes = None
+        # if 'node_dim' in self.config_params:
+        #     node_dim = self.config_params['node_dim']
+        #     # self.embed_nodes = nn.Embedding(self.n_entities, node_dim)
+        # elif 'node_one_hot' in self.config_params and self.config_params['node_one_hot'] is True:
+        #     node_dim = self.n_entities
+        #     self.embed_nodes = torch.eye(self.n_entities, self.n_entities)
+        #     if self.is_cuda:
+        #         self.embed_nodes = self.embed_nodes.cuda()
+        # else:
+        #     node_dim = self.n_entities
+        #     # print('node_dim', node_dim)
+        #     self.embed_nodes = None
+        
 
         # basic tests
         assert (self.n_classes is not None)
@@ -107,10 +105,11 @@ class Model(nn.Module):
         # Build and append layers
         ############################
         print('\n*** Building model ***')
-        self.node_dim = 2*node_dim
-        # self.edge_dim = 2 * 2*edge_dim
-        self.edge_dim = 2*edge_dim
-        
+        # self.node_dim = node_dim
+        # self.edge_dim = edge_dim
+        self.node_dim = self.g[0].ndata[GNN_NODE_TYPES_KEY].shape[1] + self.g[0].ndata[GNN_NODE_LABELS_KEY].shape[1]
+        self.edge_dim = self.g[0].edata[GNN_EDGE_TYPES_KEY].shape[1] + self.g[0].edata[GNN_EDGE_LABELS_KEY].shape[1]
+
         """ edGNN layers """
         n_edGNN_layers = len(layer_params['n_units'])
         for i in range(n_edGNN_layers):
@@ -148,7 +147,10 @@ class Model(nn.Module):
         ############################
         # 1. Build node features
         ############################
-        node_features = self.g.ndata[GNN_NODE_LABELS_KEY]
+        # print('\t GNN_NODE_TYPES_KEY.shape', self.g.ndata[GNN_NODE_TYPES_KEY].size())
+        # print('\t GNN_NODE_LABELS_KEY.shape', self.g.ndata[GNN_NODE_LABELS_KEY].size())
+        # node_features = self.g.ndata[GNN_NODE_LABELS_KEY]
+        node_features = torch.cat((self.g.ndata[GNN_NODE_TYPES_KEY], self.g.ndata[GNN_NODE_LABELS_KEY]), dim=1)
 
         # print('\tnode_features', node_features)
         # node_features = node_features.view(node_features.size()[0], -1)
@@ -156,19 +158,22 @@ class Model(nn.Module):
         if self.is_cuda:
             node_features = node_features.cuda()
         # print('\tnode_features', node_features)
-        # print('\tnode_features.shape', node_features.shape)
+        # print('\t node_features.shape', node_features.shape)
 
         ############################
         # 2. Build edge features
         ############################
-        edge_features = self.g.edata[GNN_EDGE_LABELS_KEY]
+        # edge_features = self.g.edata[GNN_EDGE_LABELS_KEY]
+        # print('\t GNN_EDGE_TYPES_KEY.shape', self.g.edata[GNN_EDGE_TYPES_KEY].size())
+        # print('\t GNN_EDGE_LABELS_KEY.shape', self.g.edata[GNN_EDGE_LABELS_KEY].size())
+        edge_features = torch.cat((self.g.edata[GNN_EDGE_TYPES_KEY], self.g.edata[GNN_EDGE_LABELS_KEY]), dim=1)
                
         # edge_features = edge_features.view(edge_features.size()[0], -1)
         # self.edge_dim = edge_features.size()[1]
         if self.is_cuda:
             edge_features = edge_features.cuda()
         # print('\tedge_features', edge_features)
-        # print('\tedge_features.shape', edge_features.shape)
+        # print('\t edge_features.shape', edge_features.shape)
 
         #################################
         # 4. Iterate over each layer
@@ -225,22 +230,5 @@ class Model(nn.Module):
             loss = loss_fcn(logits, labels)
             _, indices = torch.max(logits, dim=1)
             corrects = torch.sum(indices == labels)
-            print('labels', labels)
-            print('indices', indices)
-            print('corrects', corrects)
-            # labels_txt = ['malware', 'benign']
-            cm = confusion_matrix(y_true=labels, y_pred=indices)
-            print(cm)
-
-            fig = plt.figure()
-            ax = fig.add_subplot(111)
-            cax = ax.matshow(cm)
-            plt.title('Confusion matrix of the classifier')
-            fig.colorbar(cax)
-            # ax.set_xticklabels([''] + labels)
-            # ax.set_yticklabels([''] + labels)
-            plt.xlabel('Predicted')
-            plt.ylabel('True')
-            plt.show()
-
-            return corrects.item() * 1.0 / len(labels), loss
+            
+            return corrects.item() * 1.0 / len(labels), loss, logits
