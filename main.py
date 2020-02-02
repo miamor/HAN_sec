@@ -21,6 +21,7 @@ from app import App
 
 from utils.constants import *
 import time
+import shutil
 
 
 def load_dataset(args, cuda):
@@ -54,6 +55,8 @@ def run_app(args, data, json_path, vocab_path, cuda):
                   pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
         print('\n*** Start training ***\n')
         app.train(default_path, k_fold=args.k_fold)
+        ''' save config to output '''
+        shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
         app.test(default_path)
         # remove_model(default_path)
 
