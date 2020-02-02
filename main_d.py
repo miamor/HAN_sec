@@ -17,7 +17,7 @@ from utils.prep_data import PrepareData
 from utils.inits import to_cuda
 from utils.io import print_graph_stats, read_params, create_default_path, remove_model
 
-from app import App
+from app_d import App
 
 from utils.constants import *
 import time
@@ -39,7 +39,7 @@ def load_dataset(args, cuda):
                                from_pickle=args.from_pickle)
     data_ = to_cuda(data_) if cuda else data_
 
-    return data
+    return data, data_
 
 
 def run_app(args, data, json_path, vocab_path, cuda):
@@ -141,12 +141,9 @@ if __name__ == "__main__":
     ###########################
     # Load data
     ###########################
-    data_ = load_dataset(args, cuda)
+    data, data_ = load_dataset(args, cuda)
 
     ###########################
     # Run the app
     ###########################
-    if args.action == "test_data":
-        run_app_2(args, data_, args.input_data_file, args.vocab_path, cuda)
-    else:
-        run_app(args, data_, args.input_data_file, args.vocab_path, cuda)
+    run_app(args, (data, data_), args.input_data_file, args.vocab_path, cuda)
