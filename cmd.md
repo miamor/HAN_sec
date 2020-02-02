@@ -28,7 +28,7 @@ train \
  --lr 0.001 --weight_decay 0.001 --batch_size 8 --k_fold 10
 
 python3 main.py \
- -r ../Dataset/cuckoo \
+ -r ../Dataset/cuckoo_all \
  -d data/data_mb_no_edge.json \
  -p data/pickle_mb_no_edge \
  -v data/vocab_no_edge.txt \
