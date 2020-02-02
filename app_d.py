@@ -1,3 +1,7 @@
+'''
+chia data nhu a dung, classified va none. Chia 70/30 o moi thu muc roi combine lai
+'''
+
 import time
 import numpy as np
 import dgl
@@ -35,21 +39,35 @@ class App:
     
     TRAIN_SIZE = 0.7
 
-    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, odir=None):
-        self.data = data
+    def __init__(self, datas, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, odir=None):
+        self.data1 = datas[0]
+        self.data2 = datas[1] #none
         self.model_config = model_config
         # max length of a sequence (max nodes among graphs)
-        self.seq_max_length = data[MAX_N_NODES]
+        self.seq_max_length = max(self.data1[MAX_N_NODES], self.data2[MAX_N_NODES])
         self.learning_config = learning_config
         self.pretrained_weight = pretrained_weight
 
-        self.labels = self.data[LABELS]
+        self.labels1 = self.data1[LABELS]
+        self.labels2 = self.data2[LABELS]
 
-        self.model = Model(g=data[GRAPH],
+        data_graph = self.data1[GRAPH] + self.data2[GRAPH]
+        data_nclasses = self.data1[N_CLASSES] + self.data2[N_CLASSES]
+        if N_RELS in self.data1 and N_RELS in self.data2:
+            data_nrels = self.data1[N_RELS] + self.data2[N_RELS]
+        else:
+            data_nrels = None
+            
+        if N_ENTITIES in self.data1 and N_ENTITIES in self.data2:
+            data_nentities = self.data1[N_ENTITIES] + self.data2[N_ENTITIES]
+        else:
+            data_nentities = None
+            
+        self.model = Model(g=data_graph,
                            config_params=model_config,
-                           n_classes=data[N_CLASSES],
-                           n_rels=data[N_RELS] if N_RELS in data else None,
-                           n_entities=data[N_ENTITIES] if N_ENTITIES in data else None,
+                           n_classes=data_nclasses,
+                           n_rels=data_nrels,
+                           n_entities=data_nentities,
                            is_cuda=learning_config['cuda'],
                            seq_dim=self.seq_max_length,
                            batch_size=1,
@@ -73,20 +91,43 @@ class App:
 
         # initialize graphs
         self.accuracies = np.zeros(k_fold)
-        graphs = self.data[GRAPH]                 # load all the graphs
+        graphs1 = self.data1[GRAPH]                 # load all the graphs
 
         # debug purposes: reshuffle all the data before the splitting
-        random_indices = list(range(len(graphs)))
+        random_indices = list(range(len(graphs1)))
         random.shuffle(random_indices)
-        graphs = [graphs[i] for i in random_indices]
-        labels = self.labels[random_indices]
+        graphs1 = [graphs1[i] for i in random_indices]
+        labels1 = self.labels1[random_indices]
 
         # Split train and test
-        train_size = int(self.TRAIN_SIZE * len(graphs))
-        g_train = graphs[:train_size]
-        g_test = graphs[train_size:]
-        l_train = labels[:train_size]
-        l_test = labels[train_size:]
+        train_size1 = int(self.TRAIN_SIZE * len(graphs1))
+        g_train1 = graphs1[:train_size1]
+        g_test1 = graphs1[train_size1:]
+        l_train1 = labels1[:train_size1]
+        l_test1 = labels1[train_size1:]
+        
+        
+        graphs2 = self.data2[GRAPH]                 # load all the graphs
+
+        # debug purposes: reshuffle all the data before the splitting
+        random_indices = list(range(len(graphs2)))
+        random.shuffle(random_indices)
+        graphs2 = [graphs2[i] for i in random_indices]
+        labels2 = self.labels2[random_indices]
+
+        # Split train and test
+        train_size2 = int(self.TRAIN_SIZE * len(graphs1))
+        g_train2 = graphs2[:train_size2]
+        g_test2 = graphs2[train_size2:]
+        l_train2 = labels2[:train_size2]
+        l_test2 = labels2[train_size2:]
+        
+        
+        g_train = g_train1 + g_train2
+        l_train = torch.cat((l_train1, l_train2))
+        g_test = g_test1 + g_test2
+        l_test = torch.cat((l_test1, l_test2))
+        
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
         save_pickle(g_train, os.path.join(self.odir, 'train'))
@@ -194,10 +235,10 @@ class App:
         print('\nTest all')
         # acc = np.mean(self.accuracies)
         # acc = self.accuracies
-        graphs = self.data[GRAPH]
-        labels = self.labels
+        graphs = self.data1[GRAPH] + self.data2[GRAPH]
+        labels = torch.cat((self.labels1, self.labels2))
         self.run_test(graphs, labels)
-                    
+        
         print('\nTest on train graphs')
         graphs = load_pickle(os.path.join(self.odir, 'train'))
         labels = load_pickle(os.path.join(self.odir, 'train_labels'))
@@ -209,23 +250,6 @@ class App:
         self.run_test(graphs, labels)
 
 
-    def test_on_data(self, load_path=''):
-        print('Test model')
-        
-        try:
-            print('*** Load pre-trained model ***')
-            self.model = load_checkpoint(self.model, load_path)
-        except ValueError as e:
-            print('Error while loading the model.', e)
-
-        print('\nTest on data')
-        # acc = np.mean(self.accuracies)
-        # acc = self.accuracies
-        graphs = self.data[GRAPH]
-        labels = self.labels
-        self.run_test(graphs, labels)
-
-
     def run_test(self, graphs, labels):
         batches = dgl.batch(graphs)
         acc, _, logits = self.model.eval_graph_classification(labels, batches)
@@ -233,7 +257,9 @@ class App:
         # print('labels', labels)
         # print('indices', indices)
         # labels_txt = ['malware', 'benign']
-            
+        labels = labels.cpu()
+        indices = indices.cpu()
+        
         cm = confusion_matrix(y_true=labels, y_pred=indices)
         print(cm)
         print('Total samples', len(labels))
