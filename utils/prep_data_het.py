@@ -59,7 +59,8 @@ import json
 import numpy as np
 import scipy.sparse as sp
 from .utils import indices_to_one_hot, label_encode_onehot, sample_mask, preprocess_adj, preprocess_features, save_pickle, load_pickle, care_APIs
-from dgl import DGLGraph
+import dgl
+# from dgl import DGLGraph
 import math
 import random
 from utils.constants import *
@@ -108,18 +109,25 @@ class PrepareData(object):
         'proc_network': ''
     }
     json_data = {
-        'nodes': {},
-        'proc_process': {},
-        'proc_file': {},
-        'proc_reg': {},
-        'proc_network': {}
+        'nodes': [],
+        'proc_process': [],
+        'proc_file': [],
+        'proc_reg': [],
+        'proc_network': []
     }
+    
+    
+    proc_call_api = []
+    file_affect_api = []
+    api_modify_file = []
+    reg_affect_api = []
+    api_modify_reg = []
+    
     
     # word_dict = []
     word_dict_node = []
     word_dict_edge = []
 
-    current_edge_id = -1
     current_node_id = -1
     current_node_id_of_current_graph = -1
     api_nodes_existed_id = {}
@@ -209,7 +217,7 @@ class PrepareData(object):
 
         return
 
-    def load_data(self, from_folder=False, from_json=False, from_pickle=False):
+    def load_data(self, from_pickle=False, from_folder=False, from_json=False):
         """
         Return self.data_dortmund_format
         """
@@ -341,8 +349,7 @@ class PrepareData(object):
                                 'graph': graph_name,
                                 'graph_label': report_folder
                             }
-                            # self.json_data['nodes'].append(proc_data)
-                            self.json_data['nodes'][proc_data['id']] = proc_data
+                            self.json_data['nodes'].append(proc_data)
                             self.pid_to_node[graph_name+'_proc_'+str(proc['pid'])] = proc_data
                             
                         
@@ -398,8 +405,7 @@ class PrepareData(object):
                 'graph': graph_name,
                 'graph_label': graph_label
         }
-        # self.json_data['nodes'].append(node_api__data)
-        self.json_data['nodes'][node_api__data['id']] = node_api__data
+        self.json_data['nodes'].append(node_api__data)
         self.api_nodes_existed_id[api_info] = self.current_node_id
 
         
@@ -445,8 +451,7 @@ class PrepareData(object):
                         'graph': graph_name,
                         'graph_label': graph_label,
                 }
-                # self.json_data['nodes'].append(node_process__data)
-                self.json_data['nodes'][node_process__data['id']] = node_process__data
+                self.json_data['nodes'].append(node_process__data)
 
                 self.pid_to_node[__identifier__] = node_process__data
                     
@@ -489,8 +494,7 @@ class PrepareData(object):
             'graph': graph_name,
             'graph_label': graph_label,
         }
-        # self.json_data['nodes'].append(node_api__data)
-        self.json_data['nodes'][node_api__data['id']] = node_api__data
+        self.json_data['nodes'].append(node_api__data)
         self.api_nodes_existed_id[api_info] = self.current_node_id
 
         # if this api has file_handle, then get the file_handle, then find the node correspond with this file_handle, then connect the api_node with the file_handle node
@@ -513,8 +517,7 @@ class PrepareData(object):
                     'graph': graph_name,
                     'graph_label': graph_label,
                 }
-                # self.json_data['nodes'].append(node_file__data)
-                self.json_data['nodes'][node_file__data['id']] = node_file__data
+                self.json_data['nodes'].append(node_file__data)
 
                 self.handle_to_node[__identifier__] = node_file__data
             
@@ -550,8 +553,7 @@ class PrepareData(object):
             'graph': graph_name,
             'graph_label': graph_label,
         }
-        # self.json_data['nodes'].append(node_api__data)
-        self.json_data['nodes'][node_api__data['id']] = node_api__data
+        self.json_data['nodes'].append(node_api__data)
         self.api_nodes_existed_id[api_info] = self.current_node_id
 
         # if this api has key_handle, then get the key_handle, then find the node correspond with this key_handle, then connect the api_node with the key_handle node
@@ -574,8 +576,7 @@ class PrepareData(object):
                     'graph': graph_name,
                     'graph_label': graph_label,
                 }
-                # self.json_data['nodes'].append(node_reg__data)
-                self.json_data['nodes'][node_reg__data['id']] = node_reg__data
+                self.json_data['nodes'].append(node_reg__data)
 
                 self.handle_to_node[__identifier__] = node_reg__data
             
@@ -593,19 +594,15 @@ class PrepareData(object):
 
 
     def edge(self, s, d, args, graph_name, buffer=0):
-        self.current_edge_id += 1
-
         path_data = {
             # 'type': self.path_type_code[args['edge_type']],
             'type': args['edge_type'],
             'args': '',
             'from': s['id'],
             'to': d['id'],
-            
             'from_in_graph': s['id_in_graph'],
             'to_in_graph': d['id_in_graph'],
             
-            'id': self.current_edge_id,
             'buffer': buffer,
 
             'graph': graph_name
@@ -615,9 +612,7 @@ class PrepareData(object):
         if args is not None and 'api_arg' in args and self.nodename_to_viz(s['name']) != 'Other' and self.nodename_to_viz(d['name']) != 'Other':
             path_data['args'] = args['api_arg']
                         
-        # self.json_data[args['edge_type']].append(path_data)
-        self.json_data[args['edge_type']][path_data['id']] = path_data
-        # self.json_data['path'][path_data['id']] = path_data
+        self.json_data[args['edge_type']].append(path_data)
 
 
 
@@ -660,7 +655,8 @@ class PrepareData(object):
         ###################
         if node['graph'] not in self.graphs_dict.keys():
             self.graphs_name_to_label[node['graph']] = node['graph_label']
-            self.graphs_dict[node['graph']] = DGLGraph(multigraph=True)
+            self.graphs_dict[node['graph']] = dgl.DGLGraph(multigraph=True)
+            # self.graphs_dict[node['graph']] = dgl.graph()
             self.graphs_viz[node['graph']] = Digraph(
                 name=node['graph_label'], format='png')
 
@@ -685,15 +681,11 @@ class PrepareData(object):
         ''' GNN_NODE_LABELS_KEY '''
         cbow_node = self.cbow_encode_node_name(self.nodename_to_str(node['name']))
         # print('cbow_node', cbow_node)
-        ndata[GNN_NODE_LABELS_KEY] = cbow_node.view(1, -1)
-        # node_embed = self.embedding(cbow_node)
-        # # node_embed = self.embedding_node(cbow_node)
-        # ndata[GNN_NODE_LABELS_KEY] = node_embed.view(1, -1)
+        node_embed = self.embedding(cbow_node)
+        # node_embed = self.embedding_node(cbow_node)
+        ndata[GNN_NODE_LABELS_KEY] = node_embed.view(1, -1)
 
-        ''' save id of this node to read and calculating embedding by reading labels from file later when training or testing '''
-        # if node['id'] == -1 or node['id'] == '-1':
-        #     print("node['id'] == -1 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        # ndata[GNN_NODE_LABELS_KEY] = torch.Tensor([[node['id']]])
+        # ndata[GNN_NODE_LABELS_KEY] = self.nodename_to_str(node['name'])
 
 
         # print('ndata[GNN_NODE_LABELS_KEY]', ndata[GNN_NODE_LABELS_KEY])
@@ -719,8 +711,13 @@ class PrepareData(object):
         # # print('features_torch.shape', features_torch.shape)
         # # ndata[GNN_NODE_ATTS_KEY] = features_torch
 
-        ''' add node with data to graph '''        
+        ''' add node with data to graph '''         
         self.graphs_dict[node['graph']].add_nodes(1, data=ndata)
+        print(self.graphs_dict[node['graph']].ntypes)
+        
+        if node['type'] == 'proc':
+            self.proc_call_api['proc'].append(node)
+
 
         # for visualize
         if node['type'] in ['proc', 'file', 'reg']:
@@ -764,15 +761,11 @@ class PrepareData(object):
             cbow_edge = self.cbow_encode(args_to_str(path['args']))
             # print('args_to_str', args_to_str(path['args']))
             # print('cbow_edge', cbow_edge)
-            # print('cbow_edge.shape', cbow_edge.shape)
-            # print('edata[GNN_EDGE_TYPES_KEY].shape', edata[GNN_EDGE_TYPES_KEY].shape)
-            edata[GNN_EDGE_LABELS_KEY] = cbow_edge.view(1, -1)
-            # edge_embed = self.embedding(cbow_edge)
-            # # edge_embed = self.embedding_edge(cbow_edge)
-            # edata[GNN_EDGE_LABELS_KEY] = edge_embed.view(1, -1)
+            edge_embed = self.embedding(cbow_edge)
+            # edge_embed = self.embedding_edge(cbow_edge)
+            edata[GNN_EDGE_LABELS_KEY] = edge_embed.view(1, -1)
             
-            ''' save id of this node to read and calculating embedding by reading labels from file later when training or testing '''
-            # edata[GNN_EDGE_LABELS_KEY] = torch.Tensor([[path['id'], 0]])
+            # edata[GNN_EDGE_LABELS_KEY] = args_to_str(node['name'])
 
             # print('edata[GNN_EDGE_LABELS_KEY]', edata[GNN_EDGE_LABELS_KEY])
             # print('edata[GNN_EDGE_TYPES_KEY]', edata[GNN_EDGE_TYPES_KEY])
@@ -834,39 +827,37 @@ class PrepareData(object):
             n_tot = len(self.json_data['nodes'])
             # self.embed_nodes = nn.Embedding(n_tot, 1)
             print('\nencode_node')
-            for node_id in self.json_data['nodes']:
-                node = self.json_data['nodes'][node_id]
+            for node in self.json_data['nodes']:
                 # print('encode_node ', node)
                 self.encode_node(node)
                 n_num += 1
                 if n_num % 1000 == 0 or n_num == n_tot:
                     print('{}/{}'.format(n_num, n_tot))
         
-        # if 'path' in self.json_data.keys():
-        #     p_num = 0
-        #     p_tot = len(self.json_data['path'])
-        #     # self.embed_edges = nn.Embedding(p_tot, 1)
-        #     print('\nencode_edge')
-        #     for path_id in self.json_data['path']:
-        #         path = self.json_data['path'][path_id]
-        #         # print('encode_edge ', path)
-        #         self.encode_edge(path)
-        #         p_num += 1
-        #         if p_num % 1000 == 0 or p_num == p_tot:
-        #             print('{}/{}'.format(p_num, p_tot))
         for key in self.json_data:
             if key != 'nodes':
                 p_num = 0
                 p_tot = len(self.json_data[key])
                 # self.embed_edges = nn.Embedding(p_tot, 1)
                 print('\nencode_edge type '+key)
-                for path_id in self.json_data[key]:
-                    path = self.json_data[key][path_id]
+                for path in self.json_data[key]:
                     # print('encode_edge ', path)
                     self.encode_edge(path)
                     p_num += 1
                     if p_num % 1000 == 0 or p_num == p_tot:
                         print('{}/{}'.format(p_num, p_tot))
+
+        g_proc_call_api = dgl.bipartite([self.proc_call_api['proc'], self.proc_call_api['api']], 'proc', 'call', 'api')
+
+        g_file_affect_api = dgl.bipartite([self.file_affect_api['file'], self.file_affect_api['api']], 'file', 'affect', 'api')
+        g_api_modify_file = dgl.bipartite([self.api_modify_file['api'], self.api_modify_file['file']], 'api', 'modify', 'file')
+
+        g_reg_affect_api = dgl.bipartite([self.reg_affect_api['reg'], self.reg_affect_api['api']], 'reg', 'affect', 'api')
+        g_api_modify_reg = dgl.bipartite([self.api_modify_reg['api'], self.api_modify_reg['reg']], 'api', 'modify', 'reg')
+        
+        self.hetero_g = dgl.hetero_from_relations([g_proc_call_api, g_file_affect_api, g_api_modify_file, g_reg_affect_api, g_api_modify_reg])
+
+
 
     def create_graphs(self):
         """
@@ -1008,8 +999,7 @@ class PrepareData(object):
             nlen = len(self.json_data['nodes'])
             print('nlen', nlen)
             ncount = 0
-            for node_id in self.json_data['nodes']:
-                node = self.json_data['nodes'][node_id]
+            for node in self.json_data['nodes']:
                 ncount += 1
                 if ncount % 1000 == 0 or ncount == nlen:
                     print('update vocab at node {}/{}'.format(ncount, nlen))
@@ -1024,8 +1014,7 @@ class PrepareData(object):
                 if key != 'nodes':
                     plen = len(self.json_data[key])
                     pcount = 0
-                    for path_id in self.json_data[key]:
-                        path = self.json_data[key][path_id]
+                    for path in self.json_data[key]:
                         pcount += 1
                         if pcount % 1000 == 0 or pcount == plen:
                             print('update vocab at edge type {} {}/{}'.format(key, pcount, plen))

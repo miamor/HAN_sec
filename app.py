@@ -12,6 +12,10 @@ from utils.utils import label_encode_onehot, indices_to_one_hot
 from utils.constants import *
 from models.model_edgnn import Model
 
+from sklearn.metrics import confusion_matrix
+import matplotlib.pyplot as plt
+import os
+from utils.utils import load_pickle, save_pickle
 
 # def collate(samples):
 #     graphs, labels = map(list, zip(*samples))
@@ -28,8 +32,10 @@ class App:
     """
     App inference
     """
+    
+    TRAIN_SIZE = 0.7
 
-    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100):
+    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, odir=None):
         self.data = data
         self.model_config = model_config
         # max length of a sequence (max nodes among graphs)
@@ -46,11 +52,18 @@ class App:
                            n_entities=data[N_ENTITIES] if N_ENTITIES in data else None,
                            is_cuda=learning_config['cuda'],
                            seq_dim=self.seq_max_length,
-                           batch_size=1)
+                           batch_size=1,
+                           json_path=json_path,
+                           vocab_path=vocab_path)
 
         if early_stopping:
             self.early_stopping = EarlyStopping(
                 patience=patience, verbose=True)
+            
+        # Output folder to save train / test data
+        if odir is None:
+            odir = 'output/'+time.strftime("%Y-%m-%d_%H-%M-%S")
+        self.odir = odir
 
     def train(self, save_path='', k_fold=10):
         if self.pretrained_weight is not None:
@@ -59,7 +72,7 @@ class App:
         loss_fcn = torch.nn.CrossEntropyLoss()
 
         # initialize graphs
-        self.accuracies = np.zeros(10)
+        self.accuracies = np.zeros(k_fold)
         graphs = self.data[GRAPH]                 # load all the graphs
 
         # debug purposes: reshuffle all the data before the splitting
@@ -67,6 +80,20 @@ class App:
         random.shuffle(random_indices)
         graphs = [graphs[i] for i in random_indices]
         labels = self.labels[random_indices]
+
+        # Split train and test
+        train_size = int(self.TRAIN_SIZE * len(graphs))
+        g_train = graphs[:train_size]
+        g_test = graphs[train_size:]
+        l_train = labels[:train_size]
+        l_test = labels[train_size:]
+        if not os.path.isdir(self.odir):
+            os.makedirs(self.odir)
+        save_pickle(g_train, os.path.join(self.odir, 'train'))
+        save_pickle(l_train, os.path.join(self.odir, 'train_labels'))
+        save_pickle(g_test, os.path.join(self.odir, 'test'))
+        save_pickle(l_test, os.path.join(self.odir, 'test_labels'))
+
 
         K = k_fold
         for k in range(K):                  # K-fold cross validation
@@ -88,19 +115,19 @@ class App:
             if self.learning_config['cuda']:
                 self.model.cuda()
 
-            start = int(len(graphs)/K) * k
-            end = int(len(graphs)/K) * (k+1)
-            print('\n\n\nProcess new k, '+str(start)+'-'+str(end))
+            start = int(len(g_train)/K) * k
+            end = int(len(g_train)/K) * (k+1)
+            print('\n\n\nProcess new k='+str(k)+' | '+str(start)+'-'+str(end))
 
             # testing batch
-            testing_graphs = graphs[start:end]
-            self.testing_labels = labels[start:end]
-            self.testing_batch = dgl.batch(testing_graphs)
+            testing_graphs = g_train[start:end]
+            testing_labels = l_train[start:end]
+            testing_batch = dgl.batch(testing_graphs)
 
             # training batch
-            training_graphs = graphs[:start] + graphs[end:]
-            training_labels = labels[list(
-                range(0, start)) + list(range(end+1, len(graphs)))]
+            training_graphs = g_train[:start] + g_train[end:]
+            training_labels = l_train[list(
+                range(0, start)) + list(range(end+1, len(g_train)))]
             training_samples = list(
                 map(list, zip(training_graphs, training_labels)))
             training_batches = DataLoader(training_samples,
@@ -112,8 +139,8 @@ class App:
             print('training_batches size: ', len(training_batches))
             print('testing_graphs size: ', len(testing_graphs))
             print('training_batches', training_batches)
-            print('self.testing_labels', self.testing_labels)
-
+            print('self.testing_labels', testing_labels)
+            
             dur = []
             for epoch in range(self.learning_config['epochs']):
                 self.model.train()
@@ -139,8 +166,8 @@ class App:
                 if epoch >= 3:
                     dur.append(time.time() - t0)
 
-                val_acc, val_loss = self.model.eval_graph_classification(
-                    self.testing_labels, self.testing_batch)
+                val_acc, val_loss, _ = self.model.eval_graph_classification(
+                    testing_labels, testing_batch)
                 print("Epoch {:05d} | Time(s) {:.4f} | train_acc {:.4f} | train_loss {:.4f} | val_acc {:.4f} | val_loss {:.4f}".format(
                     epoch, np.mean(dur) if dur else 0, np.mean(training_accuracies), np.mean(losses), val_acc, val_loss))
 
@@ -164,17 +191,73 @@ class App:
         except ValueError as e:
             print('Error while loading the model.', e)
 
+        print('\nTest all')
         # acc = np.mean(self.accuracies)
         # acc = self.accuracies
         graphs = self.data[GRAPH]
-
         labels = self.labels
+        self.run_test(graphs, labels)
+                    
+        print('\nTest on train graphs')
+        graphs = load_pickle(os.path.join(self.odir, 'train'))
+        labels = load_pickle(os.path.join(self.odir, 'train_labels'))
+        self.run_test(graphs, labels)
+
+        print('\nTest on test graphs')
+        graphs = load_pickle(os.path.join(self.odir, 'test'))
+        labels = load_pickle(os.path.join(self.odir, 'test_labels'))
+        self.run_test(graphs, labels)
+
+
+    def test_on_data(self, load_path=''):
+        print('Test model')
+        
+        try:
+            print('*** Load pre-trained model ***')
+            self.model = load_checkpoint(self.model, load_path)
+        except ValueError as e:
+            print('Error while loading the model.', e)
+
+        print('\nTest on data')
+        # acc = np.mean(self.accuracies)
+        # acc = self.accuracies
+        graphs = self.data[GRAPH]
+        labels = self.labels
+        self.run_test(graphs, labels)
+
+
+    def run_test(self, graphs, labels):
         batches = dgl.batch(graphs)
+        acc, _, logits = self.model.eval_graph_classification(labels, batches)
+        _, indices = torch.max(logits, dim=1)
+        # print('labels', labels)
+        # print('indices', indices)
+        # labels_txt = ['malware', 'benign']
+            
+        cm = confusion_matrix(y_true=labels, y_pred=indices)
+        print(cm)
+        print('Total samples', len(labels))
+        
+        n_mal = (labels == 0).sum().item()
+        n_bgn = (labels == 1).sum().item()
+        tpr = cm[0][0]/n_mal * 100 # actual malware that is correctly detected as malware
+        far = cm[1][0]/n_bgn * 100  # benign that is incorrectly labeled as malware
+        print('TPR', tpr)
+        print('FAR', far)
 
-        # print('\nbg', bg)
-        acc, _ = self.model.eval_graph_classification(labels, batches)
+        # fig = plt.figure()
+        # ax = fig.add_subplot(111)
+        # cax = ax.matshow(cm)
+        # plt.title('Confusion matrix of the classifier')
+        # fig.colorbar(cax)
+        # # ax.set_xticklabels([''] + labels)
+        # # ax.set_yticklabels([''] + labels)
+        # plt.xlabel('Predicted')
+        # plt.ylabel('True')
+        # plt.show()
 
-        print("Test Accuracy {:.4f}".format(acc))
+
+        print("Accuracy {:.4f}".format(acc))
         
         # acc = np.mean(self.accuracies)
 
