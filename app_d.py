@@ -124,9 +124,9 @@ class App:
         
         
         g_train = g_train1 + g_train2
-        l_train = l_train1 + l_train2
+        l_train = torch.cat((l_train1, l_train2))
         g_test = g_test1 + g_test2
-        l_test = l_test1 + l_test2
+        l_test = torch.cat((l_test1, l_test2))
         
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
@@ -236,7 +236,7 @@ class App:
         # acc = np.mean(self.accuracies)
         # acc = self.accuracies
         graphs = self.data1[GRAPH] + self.data2[GRAPH]
-        labels = self.labels1 + self.labels2
+        labels = torch.cat((self.labels1, self.labels2))
         self.run_test(graphs, labels)
         
         print('\nTest on train graphs')
@@ -257,7 +257,9 @@ class App:
         # print('labels', labels)
         # print('indices', indices)
         # labels_txt = ['malware', 'benign']
-            
+        labels = labels.cpu()
+        indices = indices.cpu()
+        
         cm = confusion_matrix(y_true=labels, y_pred=indices)
         print(cm)
         print('Total samples', len(labels))
