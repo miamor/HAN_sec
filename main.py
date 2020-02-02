@@ -33,7 +33,7 @@ def load_dataset(args, cuda):
     return data
 
 
-def run_app(args, data, cuda):
+def run_app(args, data, json_path, vocab_path, cuda):
     # print_graph_stats(data[GRAPH])
 
     config_params = read_params(args.config_fpath, verbose=True)
@@ -51,7 +51,7 @@ def run_app(args, data, cuda):
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
                            'weight_decay': args.weight_decay, 'batch_size': args.batch_size, 'cuda': cuda}
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
         print('\n*** Start training ***\n')
         app.train(default_path, k_fold=args.k_fold)
         app.test(default_path)
@@ -66,20 +66,19 @@ def run_app(args, data, cuda):
         # odir = 'output/2020-01-14_15-04-01'
         odir = args.out_dir
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
         app.test(args.checkpoint_file)
 
 
-def run_app_2(args, data, cuda):
+def run_app_2(args, data, json_path, vocab_path, cuda):
     config_params = read_params(args.config_fpath, verbose=True)
 
     if args.checkpoint_file is not None:
         print('\n*** Start testing ***\n')
         learning_config = {'cuda': cuda}
-        # odir = 'output/2020-01-14_15-04-01'
-        odir = args.out_dir
+
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, vocab_path=vocab_path, json_path=json_path)
         app.test_on_data(args.checkpoint_file)
 
 
@@ -133,12 +132,12 @@ if __name__ == "__main__":
     ###########################
     # Load data
     ###########################
-    data = load_dataset(args, cuda)
+    data_ = load_dataset(args, cuda)
 
     ###########################
     # Run the app
     ###########################
     if args.action == "test_data":
-        run_app_2(args, data, cuda)
+        run_app_2(args, data_, args.input_data_file, args.vocab_path, cuda)
     else:
-        run_app(args, data, cuda)
+        run_app(args, data_, args.input_data_file, args.vocab_path, cuda)

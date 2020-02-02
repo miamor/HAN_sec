@@ -35,7 +35,7 @@ class App:
     
     TRAIN_SIZE = 0.7
 
-    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, odir=None):
+    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, odir=None):
         self.data = data
         self.model_config = model_config
         # max length of a sequence (max nodes among graphs)
@@ -52,7 +52,9 @@ class App:
                            n_entities=data[N_ENTITIES] if N_ENTITIES in data else None,
                            is_cuda=learning_config['cuda'],
                            seq_dim=self.seq_max_length,
-                           batch_size=1)
+                           batch_size=1,
+                           json_path=json_path,
+                           vocab_path=vocab_path)
 
         if early_stopping:
             self.early_stopping = EarlyStopping(

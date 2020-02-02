@@ -1,12 +1,14 @@
 output
 __save_results
 __archieved
+data
+checkpoints
 
 output/*
 __save_results/*
 __archieved/*
+data/*
+checkpoints/*
 
-data
-checkpoints
 __pycache__
 **/**/*.pyc
