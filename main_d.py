@@ -34,7 +34,7 @@ def load_dataset(args, cuda):
 
 
     prep_data_ = PrepareData(reports_parent_dir_path=args.input_report_folder.replace('classified', 'none'), data_json_path=args.input_data_file+'-none',
-                            pickle_folder=args.input_data_folder+'-none', vocab_path=args.vocab_path+'-none', encode_edge_data=args.encode_edge_data, save_json=args.save_json)
+                            pickle_folder=args.input_data_folder+'-none', vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json)
     data_ = prep_data_.load_data(from_folder=args.from_report_folder,
                                from_json=args.from_data_json,
                                from_pickle=args.from_pickle)
