@@ -453,15 +453,16 @@ class PrepareData(object):
             # get the node to connect to
             connect_node = self.pid_to_node[__identifier__]
             
-            # create edge between this node and connect_node
-            if 'Open' in api_name or 'Set' in api_name or 'Write' in api_name or 'Create' in api_name:
-                self.edge(node_api__data, connect_node, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
-            else:
-                self.edge(connect_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
             
             # create an edge from parent_node to node_api if there the process_identifier is different from parent_node's pid
             if int(parent_node['pid']) != int(process_identifier):
                 self.edge(parent_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
+            else:
+                # create edge between this node and connect_node
+                if 'Open' in api_name or 'Set' in api_name or 'Write' in api_name or 'Create' in api_name:
+                    self.edge(node_api__data, connect_node, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
+                else:
+                    self.edge(connect_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
         
         # Actually we don't care about those API that do not reference process_identifier to any process_identifier, so just comment these
         else:
