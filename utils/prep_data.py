@@ -1083,14 +1083,17 @@ class PrepareData(object):
             return txt
         
         if txt.split('{')[0] not in self.interesting_apis:
-            txt = 'Other'
+            txt = 'Other{'+txt+'}'
         return txt
 
     def nodename_to_str(self, txt):
         if not self.use_interesting_apis:
             return txt.split('{')[0]
 
-        return self.nodename_to_viz(txt).split('{')[0]
+        if txt.split('{')[0] not in self.interesting_apis:
+            return 'Other'
+
+        return txt.split('{')[0]
 
 
 class CBOW(nn.Module):
