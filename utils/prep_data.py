@@ -158,7 +158,7 @@ class PrepareData(object):
     }
     node_color = ['red', 'orange', 'blue', 'pink', 'yellow', 'cyan']
     
-    use_interesting_apis = True
+    use_interesting_apis = False
     interesting_apis = care_APIs() + list(node_type_code.keys()) + ['Other']
     # create_apis = ['Open', 'Create', 'Set', 'Write']
     
@@ -220,7 +220,7 @@ class PrepareData(object):
         else:
             ''' Copy prep_data file to this data folder '''
             if self.final_json_path is not None:
-                shutil.copy('prep_data.py', self.final_json_path+'/../prep_data.py')
+                shutil.copy('./utils/prep_data.py', self.final_json_path+'/../prep_data.py')
 
             if from_folder is True:
                 if from_json is False:
