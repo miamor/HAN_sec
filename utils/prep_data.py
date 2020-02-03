@@ -63,6 +63,7 @@ from dgl import DGLGraph
 import math
 import random
 from utils.constants import *
+import shutil
 
 import torch
 import torch.nn as nn
@@ -200,7 +201,7 @@ class PrepareData(object):
                 os.makedirs(json_data_dir)
             for key in self.json_data_paths:
                 self.json_data_paths[key] = json_data_dir+'/'+key+'.json'
-
+                
 
         if pickle_folder is not None:
             self.pickle_folder = pickle_folder
@@ -217,6 +218,10 @@ class PrepareData(object):
             print('Load data from pickle folder')
             self.load_from_pickle()
         else:
+            ''' Copy prep_data file to this data folder '''
+            if self.final_json_path is not None:
+                shutil.copy('prep_data.py', self.final_json_path+'/../prep_data.py')
+
             if from_folder is True:
                 if from_json is False:
                     self.save_json = True
