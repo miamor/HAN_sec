@@ -424,7 +424,7 @@ class PrepareData(object):
 
 
             process_identifier = str(api['arguments']['process_identifier'])
-            process_handle = api['arguments']['process_handle']
+            # process_handle = api['arguments']['process_handle']
 
             # save this node to list pid_to_node first, in case later needs query
             # self.pid_to_node[graph_name+'_'+api['pid']] = node_api__data
