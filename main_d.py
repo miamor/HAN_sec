@@ -21,6 +21,7 @@ from app_d import App
 
 from utils.constants import *
 import time
+import shutil
 
 
 def load_dataset(args, cuda):
@@ -33,7 +34,7 @@ def load_dataset(args, cuda):
 
 
     prep_data_ = PrepareData(reports_parent_dir_path=args.input_report_folder.replace('classified', 'none'), data_json_path=args.input_data_file+'-none',
-                            pickle_folder=args.input_data_folder+'-none', vocab_path=args.vocab_path+'-none', encode_edge_data=args.encode_edge_data, save_json=args.save_json)
+                            pickle_folder=args.input_data_folder+'-none', vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json)
     data_ = prep_data_.load_data(from_folder=args.from_report_folder,
                                from_json=args.from_data_json,
                                from_pickle=args.from_pickle)
@@ -62,6 +63,9 @@ def run_app(args, data, json_path, vocab_path, cuda):
         app = App(data, model_config=config_params[0], learning_config=learning_config,
                   pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
         print('\n*** Start training ***\n')
+        ''' save config to output '''
+        shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
+        ''' train '''
         app.train(default_path, k_fold=args.k_fold)
         app.test(default_path)
         # remove_model(default_path)

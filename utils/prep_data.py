@@ -63,6 +63,7 @@ from dgl import DGLGraph
 import math
 import random
 from utils.constants import *
+import shutil
 
 import torch
 import torch.nn as nn
@@ -157,7 +158,7 @@ class PrepareData(object):
     }
     node_color = ['red', 'orange', 'blue', 'pink', 'yellow', 'cyan']
     
-    use_interesting_apis = True
+    use_interesting_apis = False
     interesting_apis = care_APIs() + list(node_type_code.keys()) + ['Other']
     # create_apis = ['Open', 'Create', 'Set', 'Write']
     
@@ -200,7 +201,7 @@ class PrepareData(object):
                 os.makedirs(json_data_dir)
             for key in self.json_data_paths:
                 self.json_data_paths[key] = json_data_dir+'/'+key+'.json'
-
+                
 
         if pickle_folder is not None:
             self.pickle_folder = pickle_folder
@@ -217,6 +218,10 @@ class PrepareData(object):
             print('Load data from pickle folder')
             self.load_from_pickle()
         else:
+            ''' Copy prep_data file to this data folder '''
+            if self.final_json_path is not None:
+                shutil.copy('./utils/prep_data.py', self.final_json_path+'/../prep_data.py')
+
             if from_folder is True:
                 if from_json is False:
                     self.save_json = True
@@ -424,7 +429,7 @@ class PrepareData(object):
 
 
             process_identifier = str(api['arguments']['process_identifier'])
-            process_handle = api['arguments']['process_handle']
+            # process_handle = api['arguments']['process_handle']
 
             # save this node to list pid_to_node first, in case later needs query
             # self.pid_to_node[graph_name+'_'+api['pid']] = node_api__data
@@ -453,15 +458,16 @@ class PrepareData(object):
             # get the node to connect to
             connect_node = self.pid_to_node[__identifier__]
             
-            # create edge between this node and connect_node
-            if 'Open' in api_name or 'Set' in api_name or 'Write' in api_name or 'Create' in api_name:
-                self.edge(node_api__data, connect_node, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
-            else:
-                self.edge(connect_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
             
             # create an edge from parent_node to node_api if there the process_identifier is different from parent_node's pid
             if int(parent_node['pid']) != int(process_identifier):
                 self.edge(parent_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
+            else:
+                # create edge between this node and connect_node
+                if 'Open' in api_name or 'Set' in api_name or 'Write' in api_name or 'Create' in api_name:
+                    self.edge(node_api__data, connect_node, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
+                else:
+                    self.edge(connect_node, node_api__data, {'api_arg': api_arg, 'edge_type': 'proc_process'}, graph_name)
         
         # Actually we don't care about those API that do not reference process_identifier to any process_identifier, so just comment these
         else:
@@ -1082,14 +1088,17 @@ class PrepareData(object):
             return txt
         
         if txt.split('{')[0] not in self.interesting_apis:
-            txt = 'Other'
+            txt = 'Other{'+txt+'}'
         return txt
 
     def nodename_to_str(self, txt):
         if not self.use_interesting_apis:
             return txt.split('{')[0]
 
-        return self.nodename_to_viz(txt).split('{')[0]
+        if txt.split('{')[0] not in self.interesting_apis:
+            return 'Other'
+
+        return txt.split('{')[0]
 
 
 class CBOW(nn.Module):
