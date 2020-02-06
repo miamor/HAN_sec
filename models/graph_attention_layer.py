@@ -1,9 +1,9 @@
 from __future__ import absolute_import
 
-from keras import activations, constraints, initializers, regularizers
+from tensorflow.keras import activations, constraints, initializers, regularizers
 # from keras import backend as K
 from tensorflow.keras import backend as K 
-from keras.layers import Layer, Dropout, LeakyReLU
+from tensorflow.keras.layers import Layer, Dropout, LeakyReLU
 
 
 class GraphAttention(Layer):
