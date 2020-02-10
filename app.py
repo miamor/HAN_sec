@@ -204,12 +204,12 @@ class App:
 
             self.early_stopping.reset()
 
-    def test(self, load_path=''):
+    def test(self, model_path=''):
         print('Test model')
         
         try:
-            print('*** Load pre-trained model ***')
-            self.model = load_checkpoint(self.model, load_path)
+            print('*** Load pre-trained model '+model_path+' ***')
+            self.model = load_checkpoint(self.model, model_path)
         except ValueError as e:
             print('Error while loading the model.', e)
 
@@ -231,12 +231,12 @@ class App:
         self.run_test(graphs, labels)
 
 
-    def test_on_data(self, load_path=''):
+    def test_on_data(self, model_path=''):
         print('Test model')
         
         try:
-            print('*** Load pre-trained model ***')
-            self.model = load_checkpoint(self.model, load_path)
+            print('*** Load pre-trained model '+model_path+' ***')
+            self.model = load_checkpoint(self.model, model_path)
         except ValueError as e:
             print('Error while loading the model.', e)
 

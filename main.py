@@ -47,7 +47,8 @@ def run_app(args, data, json_path, vocab_path, cuda):
         now = time.strftime("%Y-%m-%d_%H-%M-%S")
 
         odir = 'output/'+now
-        default_path = create_default_path(odir+'/checkpoints')
+        # default_path = create_default_path(odir+'/checkpoints')
+        default_path = create_default_path(odir)
         print('\n*** Set default saving/loading path to:', default_path)
 
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
