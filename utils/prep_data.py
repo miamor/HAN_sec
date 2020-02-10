@@ -962,7 +962,7 @@ class PrepareData(object):
         label_set = set(sorted(self.graphs_labels))  # malware: 0, benign: 1
         num_labels = len(label_set)
         mapping = dict(zip(label_set, list(range(num_labels))))
-        with open(os.path.join(self.pickle_folder, 'mapping.json'), 'w') as f:
+        with open(self.pickle_folder+'/../mapping.json', 'w') as f:
             json.dump(mapping, f)
         
         # mapping = self.mapping_labels

@@ -73,7 +73,7 @@ def create_default_path(dirname):
     # path = 'checkpoints/checkpoint_' + str(uuid.uuid4()) + '.pt'
     if not os.path.isdir(dirname):
         os.makedirs(dirname)
-    path = dirname+'/checkpoint__'+strftime("%Y-%m-%d_%H-%M-%S")
+    # path = dirname+'/checkpoint__'+strftime("%Y-%m-%d_%H-%M-%S")
     path = dirname+'/checkpoint'
     return path
 
