@@ -26,7 +26,7 @@ import shutil
 
 def load_dataset(args, cuda):
     prep_data = PrepareData(reports_parent_dir_path=args.input_report_folder, data_json_path=args.input_data_file,
-                            pickle_folder=args.input_data_folder, vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json)
+                            pickle_folder=args.input_data_folder, vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json, use_interesting_apis=args.use_interesting_apis)
     data = prep_data.load_data(from_folder=args.from_report_folder,
                                from_json=args.from_data_json,
                                from_pickle=args.from_pickle)
@@ -37,6 +37,7 @@ def load_dataset(args, cuda):
 def run_app(args, data, json_path, vocab_path, cuda):
     # print_graph_stats(data[GRAPH])
 
+    # print('args.config_fpath', args.config_fpath)
     config_params = read_params(args.config_fpath, verbose=True)
 
     ###########################
@@ -97,6 +98,8 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--config_fpath",
                         default='models/config/config_edGNN_graph_class.json')
     parser.add_argument("-v", "--vocab_path", default='data/vocab.txt')
+    parser.add_argument("-a", "--use_interesting_apis", default=True)
+
 
     parser.add_argument("-fr", "--from_report_folder",
                         type=bool, default=False)
@@ -136,6 +139,7 @@ if __name__ == "__main__":
     ###########################
     # Load data
     ###########################
+    print('args.use_interesting_apis', args.use_interesting_apis)
     data_ = load_dataset(args, cuda)
 
     ###########################

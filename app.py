@@ -15,7 +15,7 @@ from models.model_edgnn import Model
 from sklearn.metrics import confusion_matrix
 import matplotlib.pyplot as plt
 import os
-from utils.utils import load_pickle, save_pickle
+from utils.utils import load_pickle, save_pickle, save_txt
 
 # def collate(samples):
 #     graphs, labels = map(list, zip(*samples))
@@ -44,12 +44,25 @@ class App:
         self.pretrained_weight = pretrained_weight
 
         self.labels = self.data[LABELS]
+        self.graphs_names = self.data[GNAMES]
 
-        self.model = Model(g=data[GRAPH],
+        data_graph = self.data[GRAPH]
+        data_nclasses = self.data[N_CLASSES]
+        if N_RELS in self.data:
+            data_nrels = self.data[N_RELS]
+        else:
+            data_nrels = None
+            
+        if N_ENTITIES in self.data:
+            data_nentities = self.data[N_ENTITIES]
+        else:
+            data_nentities = None
+
+        self.model = Model(g=data_graph,
                            config_params=model_config,
-                           n_classes=data[N_CLASSES],
-                           n_rels=data[N_RELS] if N_RELS in data else None,
-                           n_entities=data[N_ENTITIES] if N_ENTITIES in data else None,
+                           n_classes=data_nclasses,
+                           n_rels=data_nrels,
+                           n_entities=data_nentities,
                            is_cuda=learning_config['cuda'],
                            seq_dim=self.seq_max_length,
                            batch_size=1,
@@ -80,19 +93,28 @@ class App:
         random.shuffle(random_indices)
         graphs = [graphs[i] for i in random_indices]
         labels = self.labels[random_indices]
+        graphs_names = [self.graphs_names[i] for i in random_indices]
 
         # Split train and test
         train_size = int(self.TRAIN_SIZE * len(graphs))
         g_train = graphs[:train_size]
-        g_test = graphs[train_size:]
         l_train = labels[:train_size]
+        n_train = graphs_names[:train_size]
+
+        g_test = graphs[train_size:]
         l_test = labels[train_size:]
+        n_test = graphs_names[train_size:]
+
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
         save_pickle(g_train, os.path.join(self.odir, 'train'))
         save_pickle(l_train, os.path.join(self.odir, 'train_labels'))
         save_pickle(g_test, os.path.join(self.odir, 'test'))
         save_pickle(l_test, os.path.join(self.odir, 'test_labels'))
+
+        # save graph name list to txt file
+        save_txt(n_train, os.path.join(self.odir, 'train_list.txt'))
+        save_txt(n_test, os.path.join(self.odir, 'test_list.txt'))
 
 
         K = k_fold
@@ -230,6 +252,8 @@ class App:
         batches = dgl.batch(graphs)
         acc, _, logits = self.model.eval_graph_classification(labels, batches)
         _, indices = torch.max(logits, dim=1)
+        labels = labels.cpu()
+        indices = indices.cpu()
         # print('labels', labels)
         # print('indices', indices)
         # labels_txt = ['malware', 'benign']
@@ -238,10 +262,12 @@ class App:
         print(cm)
         print('Total samples', len(labels))
         
-        n_mal = (labels == 0).sum().item()
-        n_bgn = (labels == 1).sum().item()
-        tpr = cm[0][0]/n_mal * 100 # actual malware that is correctly detected as malware
-        far = cm[1][0]/n_bgn * 100  # benign that is incorrectly labeled as malware
+        lbl_mal = 1
+        lbl_bng = 0
+        n_mal = (labels == lbl_mal).sum().item()
+        n_bgn = (labels == lbl_bng).sum().item()
+        tpr = cm[lbl_mal][lbl_mal]/n_mal * 100 # actual malware that is correctly detected as malware
+        far = cm[lbl_bng][lbl_mal]/n_bgn * 100  # benign that is incorrectly labeled as malware
         print('TPR', tpr)
         print('FAR', far)
 

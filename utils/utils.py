@@ -108,6 +108,16 @@ def compute_node_degrees(g):
     return torch.LongTensor(node_degrees), torch.LongTensor(node_degree_ids)
 
 
+def save_txt(obj, ofpath):
+    """
+    Save an object as text
+
+    Args:
+        obj (list): list to be converted to string to save to text
+        ofpath (str): path where to store the file
+    """
+    with open(ofpath, 'w+') as ofh:
+        ofh.write('\n'.join(obj))
 
 
 def save_pickle(obj, ofpath):

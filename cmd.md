@@ -1,4 +1,70 @@
 python3 main.py \
+ -r ../../Dataset/cuckoo_sm \
+ -d data/sm_iapi_size_b0m1/data \
+ -p data/sm_iapi_size_b0m1/pickle \
+ -v data/sm_fapi_size_b0m1/vocab \
+ -fr True -fd True \
+ -a True \
+prep
+
+python3 main.py \
+ -r ../../Dataset/cuckoo_sm \
+ -d data/sm_iapi_size_b0m1/data \
+ -p data/sm_iapi_size_b0m1/pickle \
+ -v data/sm_fapi_size_b0m1/vocab \
+ -fp True \
+ -a True \
+train \
+ --lr 0.001 --weight_decay 0.001 --batch_size 16 --k_fold 2
+
+
+
+python3 main.py \
+ -r ../../Dataset/cuckoo_split/classified \
+ -d data/cs_fapi_b0m1/data \
+ -p data/cs_fapi_b0m1/pickle \
+ -v data/cs_fapi_b0m1/vocab \
+ -fr True -fd True \
+ -a False \
+train \
+ --lr 0.001 --weight_decay 0.001 --batch_size 128 --k_fold 10
+
+
+python3 main.py \
+ -r ../../Dataset/cuckoo_split/classified \
+ -d data/cs_iapi/data \  
+ -p data/cs_iapi/pickle \  
+ -v data/cs_iapi/vocab \  
+ -fp True \
+test \
+ -o output/2020-02-07_06-26-11 \
+ -c output/2020-02-07_06-26-11/config_edGNN_graph_class.json \
+ -cp output/2020-02-07_06-26-11/checkpoints/checkpoint__2020-02-07_06-26-11
+
+
+python3 main.py \
+ -r ../../Dataset/cuckoo_split/none \     
+ -d data/csn_fapi_b0m1/data \
+ -p data/csn_fapi_b0m1/pickle \
+ -v data/cs_fapi_b0m1/vocab \
+ -fr True -fd True \
+ -a False \
+test_data \
+ -o output/2020-02-07_07-58-27 \
+ -c output/2020-02-07_07-58-27/config_edGNN_graph_class.json \
+ -cp output/2020-02-07_07-58-27/checkpoints/checkpoint__2020-02-07_07-58-27
+
+
+
+
+
+
+
+
+
+
+
+python3 main.py \
  -r /media/tunguyen/DULIEU/MinhTu/cuckoo_old \
  -d data/old__data_mb_no_edge.json \
  -p data/old__pickle_mb_no_edge \

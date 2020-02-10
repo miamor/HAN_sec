@@ -94,6 +94,7 @@ class Model(nn.Module):
         self.vocab_path_edge = vocab_path+'/edge.txt'
         self.get_word_dict()
 
+        
         # layer_type = config_params["layer_type"]
 
         self.build_model()
@@ -104,22 +105,22 @@ class Model(nn.Module):
         with open(self.vocab_path_node, 'r') as f:
             vocab = f.read().strip()
             self.word_dict_node = vocab.split(' ')
-            # self.word_to_ix_node = {word: i for i,
-            #                    word in enumerate(self.word_dict_node)}
+            self.word_to_ix_node = {word: i for i,
+                               word in enumerate(self.word_dict_node)}
             # self.num_token_node = len(self.word_dict_node)
         
         # read from dict edge
         with open(self.vocab_path_edge, 'r') as f:
             vocab = f.read().strip()
             self.word_dict_edge = vocab.split(' ')
-            # self.word_to_ix_edge = {word: i for i,
-            #                    word in enumerate(self.word_dict_edge)}
+            self.word_to_ix_edge = {word: i for i,
+                               word in enumerate(self.word_dict_edge)}
             # self.num_token_edge = len(self.word_dict_edge)
 
         ''' Combine '''
         self.word_dict = self.word_dict_node + self.word_dict_edge
-        # self.word_to_ix = {word: i for i,
-        #                        word in enumerate(self.word_dict)}
+        self.word_to_ix = {word: i for i,
+                               word in enumerate(self.word_dict)}
         self.num_token = len(self.word_dict)
 
 
@@ -172,18 +173,13 @@ class Model(nn.Module):
         # self.node_dim = node_dim
         # self.edge_dim = edge_dim
         print('self.g[0].edata', self.g[0].edata)
-        # self.node_dim = self.g[0].ndata[GNN_NODE_TYPES_KEY].shape[1] + self.g[0].ndata[GNN_NODE_LABELS_KEY].shape[1]
-
-        ''' because self.g[0].ndata[GNN_NODE_LABELS_KEY] will be passed through Embedding layer '''
-        self.node_dim = self.g[0].ndata[GNN_NODE_TYPES_KEY].shape[1] + self.g[0].ndata[GNN_NODE_LABELS_KEY].shape[1] * self.embedding_dim
-        self.edge_dim = self.g[0].edata[GNN_EDGE_TYPES_KEY].shape[1] + self.g[0].edata[GNN_EDGE_LABELS_KEY].shape[1] * self.embedding_dim
-        # self.edge_dim = self.g[0].edata[GNN_EDGE_TYPES_KEY].shape[1] + self.g[0].edata[GNN_EDGE_LABELS_KEY].shape[1] * self.embedding_dim + self.g[0].edata[GNN_EDGE_BUFFER_SIZE_KEY].shape[1]
-
-        print('self.node_dim, self.edge_dim', self.node_dim, self.edge_dim)
+        self.node_dim = self.g[0].ndata[GNN_NODE_TYPES_KEY].shape[1] + self.g[0].ndata[GNN_NODE_LABELS_KEY].shape[1]
+        # self.edge_dim = self.g[0].edata[GNN_EDGE_TYPES_KEY].shape[1] + self.g[0].edata[GNN_EDGE_LABELS_KEY].shape[1] + self.g[0].edata[GNN_EDGE_BUFFER_SIZE_KEY].shape[1]
+        self.edge_dim = self.g[0].edata[GNN_EDGE_TYPES_KEY].shape[1] + self.g[0].edata[GNN_EDGE_LABELS_KEY].shape[1]
 
         """ Embedding layer """
         self.emb_layer = nn.Embedding(self.num_token, self.embedding_dim)
-        print('* Embedding:', self.num_token, self.embedding_dim)
+        print('* Embedding:', self.embedding_dim)
 
         """ edGNN layers """
         n_edGNN_layers = len(layer_params['n_units'])
@@ -223,16 +219,16 @@ class Model(nn.Module):
         ############################
         # 1. Build node features
         ############################
-        # print('\t GNN_NODE_LABELS_KEY', self.g.ndata[GNN_NODE_LABELS_KEY])
-        # print('\t GNN_NODE_TYPES_KEY.shape', self.g.ndata[GNN_NODE_TYPES_KEY].size())
-        # print('\t GNN_NODE_LABELS_KEY.shape', self.g.ndata[GNN_NODE_LABELS_KEY].size())
+        print('\t GNN_NODE_LABELS_KEY', self.g.ndata[GNN_NODE_LABELS_KEY])
+        print('\t GNN_NODE_TYPES_KEY.shape', self.g.ndata[GNN_NODE_TYPES_KEY].size())
+        print('\t GNN_NODE_LABELS_KEY.shape', self.g.ndata[GNN_NODE_LABELS_KEY].size())
         # node_features = self.g.ndata[GNN_NODE_LABELS_KEY]
         
         # ''' self.g.ndata[GNN_NODE_LABELS_KEY] is just the id of the node, not actually label. Now we need to read the label of the node from file! '''
         node_embed = self.emb_layer(self.g.ndata[GNN_NODE_LABELS_KEY]).view(self.g.ndata[GNN_NODE_TYPES_KEY].shape[0], -1)
         node_embed = node_embed.type(self.g.ndata[GNN_NODE_TYPES_KEY].type())
-
-        # print('node_embed', node_embed)
+        print('node_embed', node_embed)
+        
         # print('node_embed.shape', node_embed.shape)
         # print('self.g.ndata[GNN_NODE_TYPES_KEY].shape', self.g.ndata[GNN_NODE_TYPES_KEY].shape)
         node_features = torch.cat((self.g.ndata[GNN_NODE_TYPES_KEY], node_embed), dim=1)
@@ -249,33 +245,23 @@ class Model(nn.Module):
         # 2. Build edge features
         ############################
         # edge_features = self.g.edata[GNN_EDGE_LABELS_KEY]
-        # print('\t self.g.edata', self.g.edata)
-        # print('\t self.g', self.g)
-        # print('\t GNN_EDGE_TYPES_KEY', self.g.edata[GNN_EDGE_TYPES_KEY])
-        # print('\t GNN_EDGE_LABELS_KEY', self.g.edata[GNN_EDGE_LABELS_KEY])
+        print('\t self.g.edata', self.g.edata)
+        print('\t self.g', self.g)
+        print('\t GNN_EDGE_TYPES_KEY', self.g.edata[GNN_EDGE_TYPES_KEY])
+        print('\t GNN_EDGE_LABELS_KEY', self.g.edata[GNN_EDGE_LABELS_KEY])
         # print('\t GNN_EDGE_BUFFER_SIZE_KEY', self.g.edata[GNN_EDGE_BUFFER_SIZE_KEY])
 
-        # print('\t GNN_EDGE_TYPES_KEY.shape', self.g.edata[GNN_EDGE_TYPES_KEY].size())
-        # print('\t GNN_EDGE_LABELS_KEY.shape', self.g.edata[GNN_EDGE_LABELS_KEY].size())
+        print('\t GNN_EDGE_TYPES_KEY.shape', self.g.edata[GNN_EDGE_TYPES_KEY].size())
+        print('\t GNN_EDGE_LABELS_KEY.shape', self.g.edata[GNN_EDGE_LABELS_KEY].size())
         # print('\t GNN_EDGE_BUFFER_SIZE_KEY.shape', self.g.edata[GNN_EDGE_BUFFER_SIZE_KEY].size())
 
         edge_embed = self.emb_layer(self.g.edata[GNN_EDGE_LABELS_KEY]).view(self.g.edata[GNN_EDGE_TYPES_KEY].shape[0], -1)
-        # edge_embed = edge_embed.type(self.g.edata[GNN_EDGE_TYPES_KEY].type())
-        edge_ft_lbl = edge_embed.type(torch.FloatTensor)
+        edge_embed = edge_embed.type(self.g.edata[GNN_EDGE_TYPES_KEY].type())
+        
+        # print('edge_embed.shape', edge_embed.shape)
 
-        edge_ft_type = self.g.edata[GNN_EDGE_TYPES_KEY].type(torch.FloatTensor)
-
-        # print('edge_ft_type.shape', edge_ft_type.shape)
-
-        # edge_features = torch.cat((self.g.edata[GNN_EDGE_TYPES_KEY], edge_ft_type), dim=1)
-        edge_ft_bufsize = self.g.edata[GNN_EDGE_BUFFER_SIZE_KEY].type(torch.FloatTensor)
-        edge_ft_bufsize = edge_ft_bufsize.div(torch.max(edge_ft_bufsize))
-        # print('edge_ft_lbl', edge_ft_type)
-        # print('edge_ft_type', edge_ft_type)
-        # print('edge_ft_bufsize', edge_ft_bufsize)
-        # edge_features = torch.cat((edge_ft_lbl, edge_ft_type, edge_ft_bufsize), dim=1)
-        edge_features = torch.cat((edge_ft_lbl, edge_ft_type), dim=1)
-
+        edge_features = torch.cat((self.g.edata[GNN_EDGE_TYPES_KEY], edge_embed), dim=1)
+        
         # edge_features = edge_features.view(edge_features.size()[0], -1)
         # self.edge_dim = edge_features.size()[1]
         if self.is_cuda:
@@ -340,3 +326,59 @@ class Model(nn.Module):
             corrects = torch.sum(indices == labels)
             
             return corrects.item() * 1.0 / len(labels), loss, logits
+
+    def nodename_to_str(self, txt):
+        txt = txt.split('{')[0]
+        if txt not in interesting_apis:
+            txt = 'Other'
+        return txt
+
+
+    def cbow_encode_node_name(self, raw_text):
+        data = []
+        data.append(raw_text)
+        return make_vector(data, self.word_to_ix)
+
+    def cbow_encode(self, raw_text):
+        if len(raw_text) == 0:
+            raw_text = 'NULL NULL'
+        raw_text = raw_text.split(' ')
+        data = []
+        i = 1
+        while i < len(raw_text):
+            target = raw_text[i]
+            context = [raw_text[i - 1], target]
+            data.append((context, target))
+            i += 2
+        return make_context_vector(data[0][0], self.word_to_ix)
+
+
+
+
+class CBOW(nn.Module):
+
+    def __init__(self):
+        pass
+
+    def forward(self, inputs):
+        pass
+
+
+def make_vector(words, word_to_ix):
+    idxs = [word_to_ix[w] for w in words]
+    return torch.tensor(idxs)
+    # return torch.tensor([idxs])
+
+
+def make_context_vector(context, word_to_ix):
+    idxs = [word_to_ix[w] for w in context]
+    return torch.tensor(idxs)
+    # return torch.tensor([idxs])
+
+
+def args_to_str(args_):
+    str_ = str(args_)
+    str_ = str_.replace('{', '').replace('}', '').replace('\'', '').replace(
+        '"', '').replace(':', ' ').replace(',', ' ').replace('  ', ' ')
+    return str_
+

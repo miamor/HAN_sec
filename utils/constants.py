@@ -9,6 +9,7 @@ GNN_NODE_TYPES_KEY = 'hnt'
 GNN_NODE_ATTS_KEY = 'hna'
 GNN_EDGE_LABELS_KEY = 'hel'
 GNN_EDGE_TYPES_KEY = 'het'
+GNN_EDGE_BUFFER_SIZE_KEY = 'hes'
 GNN_EDGE_NORM = 'norm'
 
 AIFB = 'aifb'
@@ -21,6 +22,7 @@ PTC_MR = 'ptc_mr'
 
 
 GRAPH = 'graphs'
+GNAMES = 'graphs_name'
 LABELS = 'labels'
 LABELS_TXT = 'labels_txt'
 TRAIN_MASK = 'train_mask'
