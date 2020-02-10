@@ -81,6 +81,11 @@ class edGNNLayer(nn.Module):
             If edge features: for each edge u->v, return as msg: MLP(concat([h_u, h_uv]))
         """
         if self.g.edata is not None:
+            # print('GNN_NODE_FEAT_IN_KEY', GNN_NODE_FEAT_IN_KEY)
+            # print('edges.src[GNN_NODE_FEAT_IN_KEY]', edges.src[GNN_NODE_FEAT_IN_KEY])
+            # print('edges.data[GNN_EDGE_FEAT_KEY]', edges.data[GNN_EDGE_FEAT_KEY])
+            # print(edges.src[GNN_NODE_FEAT_IN_KEY].shape)
+            # print(edges.data[GNN_EDGE_FEAT_KEY].shape)
             msg = torch.cat([edges.src[GNN_NODE_FEAT_IN_KEY], edges.data[GNN_EDGE_FEAT_KEY]], dim=1)
             if self.dropout:
                 msg = self.dropout(msg)

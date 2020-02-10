@@ -116,7 +116,7 @@ class App:
         labels2 = self.labels2[random_indices]
 
         # Split train and test
-        train_size2 = int(self.TRAIN_SIZE * len(graphs1))
+        train_size2 = int(self.TRAIN_SIZE * len(graphs2))
         g_train2 = graphs2[:train_size2]
         g_test2 = graphs2[train_size2:]
         l_train2 = labels2[:train_size2]
@@ -127,6 +127,14 @@ class App:
         l_train = torch.cat((l_train1, l_train2))
         g_test = g_test1 + g_test2
         l_test = torch.cat((l_test1, l_test2))
+
+        print('\n g_train1', len(g_train1))
+        print('\n g_train2', len(g_train2))
+        print('\n g_train', len(g_train))
+        print('\n g_test1', len(g_test1))
+        print('\n g_test2', len(g_test2))
+        print('\n g_test', len(g_test))
+        
         
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
@@ -235,7 +243,10 @@ class App:
         print('\nTest all')
         # acc = np.mean(self.accuracies)
         # acc = self.accuracies
+        print('len graphs', len(self.data1[GRAPH]))
+        print('len graphs', len(self.data2[GRAPH]))
         graphs = self.data1[GRAPH] + self.data2[GRAPH]
+        print('len graphs', len(graphs))
         labels = torch.cat((self.labels1, self.labels2))
         self.run_test(graphs, labels)
         
