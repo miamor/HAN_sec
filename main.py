@@ -26,7 +26,9 @@ import shutil
 
 def load_dataset(args, cuda):
     prep_data = PrepareData(reports_parent_dir_path=args.input_report_folder, data_json_path=args.input_data_file,
-                            pickle_folder=args.input_data_folder, vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json, use_interesting_apis=args.use_interesting_apis)
+                            pickle_folder=args.input_data_folder, vocab_path=args.vocab_path, encode_edge_data=args.encode_edge_data, save_json=args.save_json, use_interesting_apis=args.use_interesting_apis,
+                            prepend_vocab=args.prepend_vocab,
+                            mapping_path=args.mapping_path)
     data = prep_data.load_data(from_folder=args.from_report_folder,
                                from_json=args.from_data_json,
                                from_pickle=args.from_pickle)
@@ -66,26 +68,35 @@ def run_app(args, data, json_path, vocab_path, cuda):
     ###########################
     # 2. Testing
     ###########################
-    if args.action == "test" and args.checkpoint_file is not None:
+    # if args.action == "test" and args.checkpoint_file is not None:
+    if args.action == "test":
         print('\n*** Start testing ***\n')
         learning_config = {'cuda': cuda}
         # odir = 'output/2020-01-14_15-04-01'
         odir = args.out_dir
+        
+        if args.checkpoint_file is None:
+            args.checkpoint_file = odir+'/checkpoint'
+
         app = App(data, model_config=config_params[0], learning_config=learning_config,
                   pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
         app.test(args.checkpoint_file)
 
 
 def run_app_2(args, data, json_path, vocab_path, cuda):
-    config_params = read_params(args.config_fpath, verbose=True)
+    # config_params = read_params(args.config_fpath, verbose=True)
+    odir = args.out_dir
+    config_params = read_params(odir+'/config_edGNN_graph_class.json', verbose=True)
 
-    if args.checkpoint_file is not None:
-        print('\n*** Start testing ***\n')
-        learning_config = {'cuda': cuda}
+    if args.checkpoint_file is None:
+        args.checkpoint_file = odir+'/checkpoint'
 
-        app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, vocab_path=vocab_path, json_path=json_path)
-        app.test_on_data(args.checkpoint_file)
+    print('\n*** Start testing ***\n')
+    learning_config = {'cuda': cuda}
+
+    app = App(data, model_config=config_params[0], learning_config=learning_config,
+              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, vocab_path=vocab_path, json_path=json_path)
+    app.test_on_data(args.checkpoint_file)
 
 
 if __name__ == "__main__":
@@ -100,6 +111,8 @@ if __name__ == "__main__":
                         default='models/config/config_edGNN_graph_class.json')
     parser.add_argument("-v", "--vocab_path", default='data/vocab.txt')
     parser.add_argument("-a", "--use_interesting_apis", default=True)
+    parser.add_argument("-pv", "--prepend_vocab", default=True)
+    parser.add_argument("-m", "--mapping_path", default=None)
 
 
     parser.add_argument("-fr", "--from_report_folder",

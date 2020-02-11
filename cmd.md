@@ -1,3 +1,75 @@
+# Prepare data
+## Prepare new dataset:
+(a: use_interesting_apis)
+Use -m to define mapping or remove this flag to auto generate it
+python3 main.py \
+ -r ../../Dataset/cuckoo_old \
+ -d data/obn_iapi/data \
+ -p data/obn_iapi/pickle \
+ -v data/obn_iapi/vocab_all \
+ -m data/mapping_benign_malware.json \
+ -fr True -fd True \
+ -a True -pv True \
+prep
+
+
+## Prepare new dataset without modifying vocab file (for testing):
+(When generate data for testing, must define mapping file by enable flag -m)
+python3 main.py \
+ -r ../../Dataset/cuckoo_none_detect \
+ -d data/n_iapi/data \
+ -p data/n_iapi/pickle \
+ -v data/obn_iapi/vocab_all \
+ -m data/mapping_benign_malware.json \
+ -fd True \
+ -a True -pv False \
+prep
+
+
+
+# Train:
+python3 main.py \
+ -r ../../Dataset/cuckoo_old_balance \
+ -d data/obn_iapi/data \
+ -p data/obn_iapi/pickle \
+ -v data/obn_iapi/vocab \
+ -fp True \
+ -a True \
+train \
+ --lr 0.001 --weight_decay 0.001 --batch_size 512 --k_fold 20
+
+## Or short:
+python3 main.py \
+ -p data/obn_iapi/pickle \
+ -v data/obn_iapi/vocab \
+ -fp True \
+train \
+ --lr 0.001 --weight_decay 0.001 --batch_size 512 --k_fold 20
+
+
+
+# Test
+## Test on train/test split data:
+python3 main.py \
+ -p data/obn_iapi/pickle \
+ -v data/obn_iapi/vocab \
+ -fp True \
+test_data \
+ -o __save_results/8925_obn_iapi
+
+
+## Test on new data:
+python3 main.py \
+ -p data/n_iapi/pickle \
+ -v data/obn_iapi/vocab \
+ -fp True \
+test_data \
+ -o __save_results/8925_obn_iapi
+
+
+
+-----------------------------------------------------------
+
 python3 main.py \
  -r ../../Dataset/cuckoo_sm \
  -d data/sm_iapi_size_b0m1/data \
@@ -43,7 +115,7 @@ test \
 
 
 python3 main.py \
- -r ../../Dataset/cuckoo_split/none \     
+ -r ../../Dataset/cuckoo_split/none \ 
  -d data/csn_fapi_b0m1/data \
  -p data/csn_fapi_b0m1/pickle \
  -v data/cs_fapi_b0m1/vocab \
