@@ -74,7 +74,7 @@ def run_app(args, data, json_path, vocab_path, cuda):
         learning_config = {'cuda': cuda}
         # odir = 'output/2020-01-14_15-04-01'
         odir = args.out_dir
-        
+
         if args.checkpoint_file is None:
             args.checkpoint_file = odir+'/checkpoint'
 
@@ -110,8 +110,8 @@ if __name__ == "__main__":
     parser.add_argument("-c", "--config_fpath",
                         default='models/config/config_edGNN_graph_class.json')
     parser.add_argument("-v", "--vocab_path", default='data/vocab.txt')
-    parser.add_argument("-a", "--use_interesting_apis", default=True)
-    parser.add_argument("-pv", "--prepend_vocab", default=True)
+    parser.add_argument("-a", "--use_interesting_apis", type=bool, default=True)
+    parser.add_argument("-pv", "--prepend_vocab", type=bool, default=True)
     parser.add_argument("-m", "--mapping_path", default=None)
 
 

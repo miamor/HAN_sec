@@ -278,6 +278,7 @@ class PrepareData(object):
             print('Writing to json file option set to False. Skip saving.')
 
     def read_report(self, report_file_path):
+        # print('report_file_path', report_file_path)
         with open(report_file_path) as json_file:
             data = json.load(json_file)
             if 'behavior' in data.keys():
@@ -1069,6 +1070,7 @@ class PrepareData(object):
             print('save vocab')
             with open(self.vocab_path_node, 'w') as f:
                 f.write(' '.join(self.word_dict_node))
+
         if self.prepend_vocab is False:
             print('Change json file nodes')
             with open(self.json_data_paths['nodes'], 'w') as f:
