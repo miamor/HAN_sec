@@ -39,14 +39,15 @@ def load_dataset(args, cuda):
 def run_app(args, data, json_path, vocab_path, cuda):
     # print_graph_stats(data[GRAPH])
 
-    # print('args.config_fpath', args.config_fpath)
-    config_params = read_params(args.config_fpath, verbose=True)
+    print('*** Load model from', args.config_fpath)
 
     ###########################
     # 1. Training
     ###########################
     if args.action == "train":
         now = time.strftime("%Y-%m-%d_%H-%M-%S")
+
+        config_params = read_params(args.config_fpath, verbose=True)
 
         odir = 'output/'+now
         # default_path = create_default_path(odir+'/checkpoints')
@@ -75,6 +76,9 @@ def run_app(args, data, json_path, vocab_path, cuda):
         # odir = 'output/2020-01-14_15-04-01'
         odir = args.out_dir
 
+        config_fpath = odir+'/config_edGNN_graph_class.json'
+        config_params = read_params(config_fpath, verbose=True)
+
         if args.checkpoint_file is None:
             args.checkpoint_file = odir+'/checkpoint'
 
@@ -86,7 +90,9 @@ def run_app(args, data, json_path, vocab_path, cuda):
 def run_app_2(args, data, json_path, vocab_path, cuda):
     # config_params = read_params(args.config_fpath, verbose=True)
     odir = args.out_dir
-    config_params = read_params(odir+'/config_edGNN_graph_class.json', verbose=True)
+    config_fpath = odir+'/config_edGNN_graph_class.json'
+    print('*** Load model from', config_fpath)
+    config_params = read_params(config_fpath, verbose=True)
 
     if args.checkpoint_file is None:
         args.checkpoint_file = odir+'/checkpoint'
