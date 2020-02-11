@@ -22,7 +22,7 @@ python3 main.py \
  -v data/obn_iapi/vocab_all \
  -m data/mapping_benign_malware.json \
  -fd True \
- -a True -pv False \
+ -a True \
 prep
 
 
@@ -97,7 +97,6 @@ python3 main.py \
  -p data/cs_fapi_b0m1/pickle \
  -v data/cs_fapi_b0m1/vocab \
  -fr True -fd True \
- -a False \
 train \
  --lr 0.001 --weight_decay 0.001 --batch_size 128 --k_fold 10
 
