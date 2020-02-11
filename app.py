@@ -4,6 +4,7 @@ import dgl
 import torch
 from torch.utils.data import DataLoader
 import random
+import json
 
 from utils.early_stopping import EarlyStopping
 from utils.io import load_checkpoint
@@ -42,6 +43,9 @@ class App:
         self.seq_max_length = data[MAX_N_NODES]
         self.learning_config = learning_config
         self.pretrained_weight = pretrained_weight
+
+        with open(vocab_path+'/../mapping.json', 'r') as f:
+            self.mapping = json.load(f)
 
         self.labels = self.data[LABELS]
         self.graphs_names = self.data[GNAMES]
@@ -262,8 +266,10 @@ class App:
         print(cm)
         print('Total samples', len(labels))
         
-        lbl_mal = 1
-        lbl_bng = 0
+        # lbl_mal = 1
+        # lbl_bng = 0
+        lbl_mal = self.mapping['malware']
+        lbl_bng = self.mapping['benign']
         n_mal = (labels == lbl_mal).sum().item()
         n_bgn = (labels == lbl_bng).sum().item()
         tpr = cm[lbl_mal][lbl_mal]/n_mal * 100 # actual malware that is correctly detected as malware

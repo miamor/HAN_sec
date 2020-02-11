@@ -76,18 +76,18 @@ class Model(nn.Module):
         self.batch_size = batch_size
         
         self.embedding_dim = 1
-        self.json_data = {
-            'nodes': {},
-            'paths': {}
-        }
-        self.json_filenames = ['nodes', 'proc_process', 'proc_file', 'proc_reg', 'proc_network']
-        if json_path is not None: # read data
-            for key in self.json_filenames:
-                    with open(json_path+'/'+key+'.json') as json_file:
-                        if key == 'nodes':
-                            self.json_data['nodes'] = json.load(json_file)
-                        else:
-                            self.json_data['paths'].update(json.load(json_file))
+        # self.json_data = {
+        #     'nodes': {},
+        #     'paths': {}
+        # }
+        # self.json_filenames = ['nodes', 'proc_process', 'proc_file', 'proc_reg', 'proc_network']
+        # if json_path is not None: # read data
+        #     for key in self.json_filenames:
+        #             with open(json_path+'/'+key+'.json') as json_file:
+        #                 if key == 'nodes':
+        #                     self.json_data['nodes'] = json.load(json_file)
+        #                 else:
+        #                     self.json_data['paths'].update(json.load(json_file))
 
 
         self.vocab_path_node = vocab_path+'/node.txt'
