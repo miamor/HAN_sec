@@ -1,7 +1,7 @@
 {
     "layer_type": "edGNNLayer",
     "layer_params": {
-        "n_units": [4,12],
+        "n_units": [12,20],
         "activation": ["relu", "relu", "relu"]
     }
 }
