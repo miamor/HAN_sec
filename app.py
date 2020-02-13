@@ -82,7 +82,7 @@ class App:
             odir = 'output/'+time.strftime("%Y-%m-%d_%H-%M-%S")
         self.odir = odir
 
-    def train(self, save_path='', k_fold=10):
+    def train(self, save_path='', k_fold=10, split_train_test=True):
         if self.pretrained_weight is not None:
             self.model = load_checkpoint(self.model, self.pretrained_weight)
 
@@ -100,7 +100,10 @@ class App:
         graphs_names = [self.graphs_names[i] for i in random_indices]
 
         # Split train and test
-        train_size = int(self.TRAIN_SIZE * len(graphs))
+        if split_train_test is True:
+            train_size = int(self.TRAIN_SIZE * len(graphs))
+        else:
+            train_size = len(graphs)
         g_train = graphs[:train_size]
         l_train = labels[:train_size]
         n_train = graphs_names[:train_size]
@@ -108,6 +111,7 @@ class App:
         g_test = graphs[train_size:]
         l_test = labels[train_size:]
         n_test = graphs_names[train_size:]
+            
 
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
