@@ -51,6 +51,7 @@ train \
 # Test
 ## Test on train/test split data:
 python3 main.py \
+ -d data/obn_iapi/pickle \
  -p data/obn_iapi/pickle \
  -v data/obn_iapi/vocab \
  -fp True \
