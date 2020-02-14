@@ -986,7 +986,7 @@ class PrepareData(object):
 
                 # Save this graph to png
                 # if gnum < 10:
-                if False:
+                if True:
                     # print(graph)
                     # nx.draw(graph.to_networkx(), with_labels=True)
                     # plt.savefig('data/graphs/{}.png'.format(g_name))
@@ -1070,6 +1070,7 @@ class PrepareData(object):
         Create dictionary of name and arguments to encode
         """
         print('create_dict_node')
+        self.word_dict_node.append('Other')
         self.append_dict_node()
     
     def create_dict_edge(self):
