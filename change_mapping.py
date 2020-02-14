@@ -1,8 +1,8 @@
 from utils.utils import load_pickle
 import torch
 
-labels = torch.load('/media/tunguyen/Devs/Security/HAN_sec/data/obn_iapi/pickle/labels')
-labels_txt = load_pickle('/media/tunguyen/Devs/Security/HAN_sec/data/obn_iapi/pickle/labels_txt')
+labels = torch.load('/media/tunguyen/Devs/Security/HAN_sec/data/adnew_iapi/pickle/labels')
+labels_txt = load_pickle('/media/tunguyen/Devs/Security/HAN_sec/data/adnew_iapi/pickle/labels_txt')
 
 labels_new = labels.clone()
 for i,label in enumerate(labels):
@@ -13,4 +13,4 @@ for i,label in enumerate(labels):
     if label == 1: # current benign, change benign to 0
         labels_new[i] = 0
 
-torch.save(labels_new, '/media/tunguyen/Devs/Security/HAN_sec/data/obn_iapi/pickle/labels_')
+torch.save(labels_new, '/media/tunguyen/Devs/Security/HAN_sec/data/adnew_iapi/pickle/labels_')
