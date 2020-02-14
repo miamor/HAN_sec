@@ -82,7 +82,7 @@ class App:
             odir = 'output/'+time.strftime("%Y-%m-%d_%H-%M-%S")
         self.odir = odir
 
-    def train(self, save_path='', k_fold=10):
+    def train(self, save_path='', k_fold=10, split_train_test=True):
         if self.pretrained_weight is not None:
             self.model = load_checkpoint(self.model, self.pretrained_weight)
 
@@ -100,7 +100,10 @@ class App:
         graphs_names = [self.graphs_names[i] for i in random_indices]
 
         # Split train and test
-        train_size = int(self.TRAIN_SIZE * len(graphs))
+        if split_train_test is True:
+            train_size = int(self.TRAIN_SIZE * len(graphs))
+        else:
+            train_size = len(graphs)
         g_train = graphs[:train_size]
         l_train = labels[:train_size]
         n_train = graphs_names[:train_size]
@@ -108,6 +111,7 @@ class App:
         g_test = graphs[train_size:]
         l_test = labels[train_size:]
         n_test = graphs_names[train_size:]
+            
 
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)
@@ -146,26 +150,26 @@ class App:
             print('\n\n\nProcess new k='+str(k)+' | '+str(start)+'-'+str(end))
 
             # testing batch
-            testing_graphs = g_train[start:end]
-            testing_labels = l_train[start:end]
-            testing_batch = dgl.batch(testing_graphs)
+            val_batch_graphs = g_train[start:end]
+            val_batch_labels = l_train[start:end]
+            val_batch = dgl.batch(val_batch_graphs)
 
             # training batch
-            training_graphs = g_train[:start] + g_train[end:]
-            training_labels = l_train[list(
+            train_batch_graphs = g_train[:start] + g_train[end:]
+            train_batch_labels = l_train[list(
                 range(0, start)) + list(range(end+1, len(g_train)))]
-            training_samples = list(
-                map(list, zip(training_graphs, training_labels)))
-            training_batches = DataLoader(training_samples,
+            train_batch_samples = list(
+                map(list, zip(train_batch_graphs, train_batch_labels)))
+            train_batches = DataLoader(train_batch_samples,
                                           batch_size=self.learning_config['batch_size'],
                                           shuffle=True,
                                           collate_fn=collate)
 
-            print('training_graphs size: ', len(training_graphs))
-            print('training_batches size: ', len(training_batches))
-            print('testing_graphs size: ', len(testing_graphs))
-            print('training_batches', training_batches)
-            print('self.testing_labels', testing_labels)
+            print('train_batches size: ', len(train_batches))
+            print('train_batch_graphs size: ', len(train_batch_graphs))
+            print('val_batch_graphs size: ', len(val_batch_graphs))
+            print('train_batches', train_batches)
+            print('val_batch_labels', val_batch_labels)
             
             dur = []
             for epoch in range(self.learning_config['epochs']):
@@ -174,7 +178,7 @@ class App:
                     t0 = time.time()
                 losses = []
                 training_accuracies = []
-                for iter_idx, (bg, label) in enumerate(training_batches):
+                for iter_idx, (bg, label) in enumerate(train_batches):
                     logits = self.model(bg)
                     if self.learning_config['cuda']:
                         label = label.cuda()
@@ -193,7 +197,7 @@ class App:
                     dur.append(time.time() - t0)
 
                 val_acc, val_loss, _ = self.model.eval_graph_classification(
-                    testing_labels, testing_batch)
+                    val_batch_labels, val_batch)
                 print("Epoch {:05d} | Time(s) {:.4f} | train_acc {:.4f} | train_loss {:.4f} | val_acc {:.4f} | val_loss {:.4f}".format(
                     epoch, np.mean(dur) if dur else 0, np.mean(training_accuracies), np.mean(losses), val_acc, val_loss))
 
@@ -267,8 +271,6 @@ class App:
         print('Total samples', len(labels))
         
         if len(self.mapping) == 2:
-            # lbl_mal = 1
-            # lbl_bng = 0
             lbl_mal = self.mapping['malware']
             lbl_bng = self.mapping['benign']
             n_mal = (labels == lbl_mal).sum().item()

@@ -75,7 +75,7 @@ class Model(nn.Module):
         self.seq_dim = seq_dim # number of nodes in a sequence
         self.batch_size = batch_size
         
-        self.embedding_dim = 1
+        self.embedding_dim = 5
         # self.json_data = {
         #     'nodes': {},
         #     'paths': {}

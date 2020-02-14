@@ -14,6 +14,12 @@ import torch
 from utils.constants import GNN_MSG_KEY, GNN_NODE_FEAT_IN_KEY, GNN_NODE_FEAT_OUT_KEY, GNN_EDGE_FEAT_KEY, GNN_AGG_MSG_KEY
 
 
+interesting_args = ["heap_dep_bypass", "filepath_r", "filepath"]
+
+# def getInterestingArg(args):
+#     for key in args:
+#         if key in interesting_args:
+
 def care_APIs():
     return [
     "NtDuplicateObject",

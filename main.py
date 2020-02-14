@@ -62,7 +62,7 @@ def run_app(args, data, json_path, vocab_path, cuda):
         ''' save config to output '''
         shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
         ''' train '''
-        app.train(default_path, k_fold=args.k_fold)
+        app.train(default_path, k_fold=args.k_fold, split_train_test=True)
         app.test(default_path)
         # remove_model(default_path)
 
