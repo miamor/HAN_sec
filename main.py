@@ -36,7 +36,7 @@ def load_dataset(args, cuda):
     return data
 
 
-def run_app(args, data, json_path, vocab_path, cuda):
+def run_app(args, data, cuda):
     # print_graph_stats(data[GRAPH])
 
     print('*** Load model from', args.config_fpath)
@@ -57,12 +57,12 @@ def run_app(args, data, json_path, vocab_path, cuda):
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
                            'weight_decay': args.weight_decay, 'batch_size': args.batch_size, 'cuda': cuda}
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
         print('\n*** Start training ***\n')
         ''' save config to output '''
         shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
         ''' train '''
-        app.train(default_path, k_fold=args.k_fold, split_train_test=False)
+        app.train(default_path, k_fold=args.k_fold, split_train_test=True)
         app.test(default_path)
         # remove_model(default_path)
 
@@ -83,11 +83,11 @@ def run_app(args, data, json_path, vocab_path, cuda):
             args.checkpoint_file = odir+'/checkpoint'
 
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=json_path, vocab_path=vocab_path, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
         app.test(args.checkpoint_file)
 
 
-def run_app_2(args, data, json_path, vocab_path, cuda):
+def run_app_2(args, data, cuda):
     # config_params = read_params(args.config_fpath, verbose=True)
     odir = args.out_dir
     config_fpath = odir+'/config_edGNN_graph_class.json'
@@ -101,23 +101,22 @@ def run_app_2(args, data, json_path, vocab_path, cuda):
     learning_config = {'cuda': cuda}
 
     app = App(data, model_config=config_params[0], learning_config=learning_config,
-              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, vocab_path=vocab_path, json_path=json_path)
+              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path)
     app.test_on_data(args.checkpoint_file)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("-r", "--input_report_folder",
-                        default='/home/fitmta/Documents/MinhTu/Dataset/cuckoo_sm')
-    parser.add_argument("-d", "--input_data_file", default='data/data.json')
-    parser.add_argument("-p", "--input_data_folder", default='data/pickle')
+    parser.add_argument("-r", "--input_report_folder", default=None)
+    parser.add_argument("-d", "--input_data_file", default=None)
+    parser.add_argument("-p", "--input_data_folder", default=None)
     parser.add_argument("-f", "--folder", default=None)
     parser.add_argument("-c", "--config_fpath",
                         default='models/config/config_edGNN_graph_class.json')
-    parser.add_argument("-v", "--vocab_path", default='data/vocab.txt')
-    parser.add_argument("-a", "--use_interesting_apis", type=bool, default=True)
-    parser.add_argument("-pv", "--prepend_vocab", type=bool, default=True)
+    parser.add_argument("-v", "--vocab_path", default=None)
+    parser.add_argument("-a", "--use_interesting_apis", type=bool, default=False)
+    parser.add_argument("-pv", "--prepend_vocab", type=bool, default=False)
     parser.add_argument("-m", "--mapping_path", default=None)
 
 
@@ -159,13 +158,12 @@ if __name__ == "__main__":
     ###########################
     # Load data
     ###########################
-    print('args.use_interesting_apis', args.use_interesting_apis)
     data_ = load_dataset(args, cuda)
 
     ###########################
     # Run the app
     ###########################
     if args.action == "test_data":
-        run_app_2(args, data_, args.input_data_file, args.vocab_path, cuda)
+        run_app_2(args, data_, cuda)
     else:
-        run_app(args, data_, args.input_data_file, args.vocab_path, cuda)
+        run_app(args, data_,cuda)

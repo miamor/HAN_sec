@@ -194,6 +194,8 @@ class PrepareData(object):
         self.use_interesting_apis = use_interesting_apis
         self.prepend_vocab = prepend_vocab
         self.mapping_path = mapping_path
+        print('self.prepend_vocab', self.prepend_vocab)
+        print('self.use_interesting_apis', self.use_interesting_apis)
 
         if reports_parent_dir_path is not None:
             self.reports_parent_dir_path = reports_parent_dir_path
@@ -372,14 +374,15 @@ class PrepareData(object):
 
                         # print(api)
 
-                        if cat == 'file': # process API type file
-                            self.process_API_file(api, api_info, proc_data, graph_name, report_folder)
+                        if api_name in self.interesting_apis:
+                            if cat == 'file': # process API type file
+                                self.process_API_file(api, api_info, proc_data, graph_name, report_folder)
 
-                        if cat == 'process': # process API type process
-                            self.process_API_process(api, api_info, proc_data, graph_name, report_folder)
+                            if cat == 'process': # process API type process
+                                self.process_API_process(api, api_info, proc_data, graph_name, report_folder)
 
-                        if cat == 'registry': # process API type registry
-                            self.process_API_registry(api, api_info, proc_data, graph_name, report_folder)
+                            if cat == 'registry': # process API type registry
+                                self.process_API_registry(api, api_info, proc_data, graph_name, report_folder)
                             
                 
         # print('\tDone')
@@ -400,7 +403,7 @@ class PrepareData(object):
         # api_args = 'NULL'
         # if 'arguments' in api and api['arguments'] is not None and api['arguments'] != '':
         #     api_args = getInterestingArg(api['arguments'])
-        
+
 
         
         # Check if this api (with the same characteristics (use name only as characteristics)) is called.
@@ -645,6 +648,9 @@ class PrepareData(object):
 
     def edge(self, s, d, args, graph_name, buffer_size=0):
         self.current_edge_id += 1
+
+        # if buffer_size <= 0:
+        #     return
 
         if buffer_size > 0:
             print('buffer', buffer_size)
@@ -980,7 +986,7 @@ class PrepareData(object):
 
                 # Save this graph to png
                 # if gnum < 10:
-                if True:
+                if False:
                     # print(graph)
                     # nx.draw(graph.to_networkx(), with_labels=True)
                     # plt.savefig('data/graphs/{}.png'.format(g_name))
