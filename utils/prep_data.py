@@ -1228,6 +1228,7 @@ def make_vector(words, word_to_ix):
 
 def make_context_vector(context, word_to_ix):
     # print('context', context)
+    idxs = []
     for w in context:
         if len(w) == 0: 
             w = 'NULL'
