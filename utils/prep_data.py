@@ -986,7 +986,7 @@ class PrepareData(object):
 
                 # Save this graph to png
                 # if gnum < 10:
-                if True:
+                if False:
                     # print(graph)
                     # nx.draw(graph.to_networkx(), with_labels=True)
                     # plt.savefig('data/graphs/{}.png'.format(g_name))
