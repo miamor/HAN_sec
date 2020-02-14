@@ -910,7 +910,7 @@ class PrepareData(object):
                 # print('encode_node ', node)
                 self.encode_node(node)
                 n_num += 1
-                if n_num % 10000 == 0 or n_num == n_tot:
+                if n_num % 100000 == 0 or n_num == n_tot:
                     print('{}/{}'.format(n_num, n_tot))
         
         # if 'path' in self.json_data.keys():
@@ -923,7 +923,7 @@ class PrepareData(object):
         #         # print('encode_edge ', path)
         #         self.encode_edge(path)
         #         p_num += 1
-        #         if p_num % 10000 == 0 or p_num == p_tot:
+        #         if p_num % 100000 == 0 or p_num == p_tot:
         #             print('{}/{}'.format(p_num, p_tot))
         for key in self.json_data:
             if key != 'nodes':
@@ -936,7 +936,7 @@ class PrepareData(object):
                     # print('encode_edge ', path)
                     self.encode_edge(path)
                     p_num += 1
-                    if p_num % 10000 == 0 or p_num == p_tot:
+                    if p_num % 100000 == 0 or p_num == p_tot:
                         print('{}/{}'.format(p_num, p_tot))
 
     def create_graphs(self):
@@ -1227,7 +1227,13 @@ def make_vector(words, word_to_ix):
 
 
 def make_context_vector(context, word_to_ix):
-    idxs = [word_to_ix[w] for w in context]
+    # print('context', context)
+    idxs = []
+    for w in context:
+        if len(w) == 0: 
+            w = 'NULL'
+        idxs.append(word_to_ix[w])
+    # idxs = [word_to_ix[w] for w in context]
     return torch.tensor(idxs)
     # return torch.tensor([idxs])
 
