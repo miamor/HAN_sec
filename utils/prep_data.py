@@ -673,7 +673,7 @@ class PrepareData(object):
 
         # care only when this api (s and d) is not Other (in interesting apis)
         if args is not None and 'api_flags' in args and self.nodename_to_viz(s['name']) != 'Other' and self.nodename_to_viz(d['name']) != 'Other':
-            path_data['args'] = args['api_flags'].replace('|', ' ')
+            path_data['args'] = args['api_flags']
                         
         # self.json_data[args['edge_type']].append(path_data)
         self.json_data[args['edge_type']][path_data['id']] = path_data
@@ -1235,7 +1235,7 @@ def make_context_vector(context, word_to_ix):
 def args_to_str(args_):
     str_ = str(args_)
     str_ = str_.replace('{', '').replace('}', '').replace('\'', '').replace(
-        '"', '').replace(':', ' ').replace(',', ' ').replace('  ', ' ')
+        '"', '').replace(':', ' ').replace(',', ' ').replace('|', ' ').replace('  ', ' ')
     return str_
 
 
