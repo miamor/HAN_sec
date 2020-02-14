@@ -1127,7 +1127,7 @@ class PrepareData(object):
                         txt = args_to_str(path['args'])
                         # print('txt', txt)
                         for word in txt.split(' '):
-                            if word not in self.word_dict_edge:
+                            if word != ' ' and word not in self.word_dict_edge:
                                 print('\t'+word+' not in word_dict_edge')
                                 # self.word_dict_edge.append(word)
 
