@@ -1127,8 +1127,8 @@ class PrepareData(object):
                         txt = args_to_str(path['args'])
                         # print('txt', txt)
                         for word in txt.split(' '):
-                            if word != ' ' and word not in self.word_dict_edge:
-                                print('\t'+word+' not in word_dict_edge')
+                            if len(word) > 0 and word != ' ' and word not in self.word_dict_edge:
+                                print('\t['+word+'] not in word_dict_edge')
                                 # self.word_dict_edge.append(word)
 
                                 if self.prepend_vocab is True:
