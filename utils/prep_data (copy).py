@@ -128,7 +128,6 @@ class PrepareData(object):
     current_node_id = -1
     current_node_id_of_current_graph = -1
     api_nodes_existed_id = {}
-    api_nodes_existed = {}
 
     # path_type_code = {
     #     'proc_reg': 0,
@@ -194,8 +193,6 @@ class PrepareData(object):
         self.use_interesting_apis = use_interesting_apis
         self.prepend_vocab = prepend_vocab
         self.mapping_path = mapping_path
-        print('self.prepend_vocab', self.prepend_vocab)
-        print('self.use_interesting_apis', self.use_interesting_apis)
 
         if reports_parent_dir_path is not None:
             self.reports_parent_dir_path = reports_parent_dir_path
@@ -281,7 +278,7 @@ class PrepareData(object):
             print('Writing to json file option set to False. Skip saving.')
 
     def read_report(self, report_file_path):
-        print('report_file_path', report_file_path)
+        # print('report_file_path', report_file_path)
         with open(report_file_path) as json_file:
             data = json.load(json_file)
             if 'behavior' in data.keys():
@@ -372,9 +369,10 @@ class PrepareData(object):
                         api_time = api['time']
                         api_info = '{}|{}'.format(graph_name, api_name)
 
-                        # print(api)
+                        # Check if this api (with the same characteristics (use name only as characteristics)) is called
+                        if api_info not in self.api_nodes_existed_id.keys():
+                            # print(api)
 
-                        if api_name in self.interesting_apis:
                             if cat == 'file': # process API type file
                                 self.process_API_file(api, api_info, proc_data, graph_name, report_folder)
 
@@ -400,31 +398,20 @@ class PrepareData(object):
         api_flags = 'NULL'
         if 'flags' in api and api['flags'] is not None and api['flags'] != '':
             api_flags = api['flags']
-        # api_args = 'NULL'
-        # if 'arguments' in api and api['arguments'] is not None and api['arguments'] != '':
-        #     api_args = getInterestingArg(api['arguments'])
-
 
         
-        # Check if this api (with the same characteristics (use name only as characteristics)) is called.
-        # If not called, create new node
-        if api_info not in self.api_nodes_existed_id.keys():
-            # create a process api node
-            self.increase_node()
-            node_api__data = {
+        # create a process api node no matter what
+        self.increase_node()
+        node_api__data = {
                 'name': api['api'],
                 'type': 'process_api',
-                
+                    
                 'id': self.current_node_id,
                 'id_in_graph': self.current_node_id_of_current_graph,
 
                 'graph': graph_name,
                 'graph_label': graph_label
-            }
-            self.api_nodes_existed[api_info] = node_api__data
-        else:
-            node_api__data = self.api_nodes_existed[api_info]
-
+        }
         # self.json_data['nodes'].append(node_api__data)
         self.json_data['nodes'][node_api__data['id']] = node_api__data
         self.api_nodes_existed_id[api_info] = self.current_node_id
@@ -494,10 +481,10 @@ class PrepareData(object):
                     self.edge(connect_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
         
         # Actually we don't care about those API that do not reference process_identifier to any process_identifier, so just comment these
-        # else:
-        #     # create edge from this api to proc node (parent_node)
-        #     # but because this is process, this edge is the same with the edge created above (from node_api__data to connect_node)
-        #     self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
+        else:
+            # create edge from this api to proc node (parent_node)
+            # but because this is process, this edge is the same with the edge created above (from node_api__data to connect_node)
+            self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
                 
 
     def process_API_file(self, api, api_info, parent_node, graph_name, graph_label):
@@ -507,25 +494,18 @@ class PrepareData(object):
         if 'flags' in api and api['flags'] is not None and api['flags'] != '':
             api_flags = api['flags']
 
-        # Check if this api (with the same characteristics (use name only as characteristics)) is called.
-        # If not called, create new node
-        if api_info not in self.api_nodes_existed_id.keys():
-            # create a process api node
-            self.increase_node()
-            node_api__data = {
-                'name': api['api'],
-                'type': 'process_api',
-                        
-                'id': self.current_node_id,
-                'id_in_graph': self.current_node_id_of_current_graph,
+        # node file_api data
+        self.increase_node()
+        node_api__data = {
+            'name': api['api'],
+            'type': 'file_api',
+            
+            'id': self.current_node_id,
+            'id_in_graph': self.current_node_id_of_current_graph,
 
-                'graph': graph_name,
-                'graph_label': graph_label
-            }
-            self.api_nodes_existed[api_info] = node_api__data
-        else:
-            node_api__data = self.api_nodes_existed[api_info]
-
+            'graph': graph_name,
+            'graph_label': graph_label,
+        }
         # self.json_data['nodes'].append(node_api__data)
         self.json_data['nodes'][node_api__data['id']] = node_api__data
         self.api_nodes_existed_id[api_info] = self.current_node_id
@@ -579,27 +559,18 @@ class PrepareData(object):
         if 'flags' in api and api['flags'] is not None and api['flags'] != '':
             api_flags = api['flags']
 
-        # Check if this api (with the same characteristics (use name only as characteristics)) is called.
-        # If not called, create new node
-        if api_info not in self.api_nodes_existed_id.keys():
-            # create a process api node
-            self.increase_node()
-            node_api__data = {
-                'name': api['api'],
-                'type': 'process_api',
-                        
-                'id': self.current_node_id,
-                'id_in_graph': self.current_node_id_of_current_graph,
+        # node reg api data
+        self.increase_node()
+        node_api__data = {
+            'name': api['api'],
+            'type': 'reg_api',
+            
+            'id': self.current_node_id,
+            'id_in_graph': self.current_node_id_of_current_graph,
 
-                'graph': graph_name,
-                'graph_label': graph_label
-            }
-            self.api_nodes_existed[api_info] = node_api__data
-        else:
-            node_api__data = self.api_nodes_existed[api_info]
-        
-            # print('node_api__data', node_api__data)
-
+            'graph': graph_name,
+            'graph_label': graph_label,
+        }
         # self.json_data['nodes'].append(node_api__data)
         self.json_data['nodes'][node_api__data['id']] = node_api__data
         self.api_nodes_existed_id[api_info] = self.current_node_id
@@ -648,12 +619,6 @@ class PrepareData(object):
 
     def edge(self, s, d, args, graph_name, buffer_size=0):
         self.current_edge_id += 1
-
-        # if buffer_size <= 0:
-        #     return
-
-        if buffer_size > 0:
-            print('buffer', buffer_size)
 
         path_data = {
             # 'type': self.path_type_code[args['edge_type']],
@@ -779,7 +744,7 @@ class PrepareData(object):
         # # print('features_torch.shape', features_torch.shape)
         # # ndata[GNN_NODE_ATTS_KEY] = features_torch
 
-        ''' add node with data to graph '''
+        ''' add node with data to graph '''        
         self.graphs_dict[node['graph']].add_nodes(1, data=ndata)
 
         # for visualize
@@ -992,7 +957,7 @@ class PrepareData(object):
                     # plt.savefig('data/graphs/{}.png'.format(g_name))
                     # print(self.graphs_viz[g_name].source)
                     self.graphs_viz[g_name].render(
-                        filename='data/graphviz/{}/{}'.format(os.path.basename(self.reports_parent_dir_path), g_name))
+                        filename='data/graphviz/{}'.format(g_name))
                 gnum += 1
 
         # print(self.graphs)
@@ -1070,7 +1035,6 @@ class PrepareData(object):
         Create dictionary of name and arguments to encode
         """
         print('create_dict_node')
-        self.word_dict_node.append('Other')
         self.append_dict_node()
     
     def create_dict_edge(self):
@@ -1235,7 +1199,7 @@ def make_context_vector(context, word_to_ix):
 def args_to_str(args_):
     str_ = str(args_)
     str_ = str_.replace('{', '').replace('}', '').replace('\'', '').replace(
-        '"', '').replace(':', ' ').replace(',', ' ').replace('|', ' ').replace('  ', ' ')
+        '"', '').replace(':', ' ').replace(',', ' ').replace('  ', ' ')
     return str_
 
 
