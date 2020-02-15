@@ -57,12 +57,12 @@ def run_app(args, data, cuda):
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
                            'weight_decay': args.weight_decay, 'batch_size': args.batch_size, 'cuda': cuda}
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=80, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
         print('\n*** Start training ***\n')
         ''' save config to output '''
         shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
         ''' train '''
-        app.train(default_path, k_fold=args.k_fold, split_train_test=True)
+        app.train(default_path, k_fold=args.k_fold, split_train_test=args.split_train_test)
         app.test(default_path)
         # remove_model(default_path)
 
@@ -83,7 +83,7 @@ def run_app(args, data, cuda):
             args.checkpoint_file = odir+'/checkpoint'
 
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=80, json_path=args.input_data_file, vocab_path=args.vocab_path, odir=odir)
         app.test(args.checkpoint_file)
 
 
@@ -101,7 +101,7 @@ def run_app_2(args, data, cuda):
     learning_config = {'cuda': cuda}
 
     app = App(data, model_config=config_params[0], learning_config=learning_config,
-              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path)
+              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=80, json_path=args.input_data_file, vocab_path=args.vocab_path)
     app.test_on_data(args.checkpoint_file)
 
 
@@ -144,6 +144,7 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--out_dir", default=None)
 
     parser.add_argument("-sj", "--save_json", type=bool, default=True)
+    parser.add_argument("-s", "--split_train_test", type=bool, default=False)
     parser.add_argument("--encode_edge_data", type=bool, default=True)
 
     args = parser.parse_args()

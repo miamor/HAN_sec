@@ -171,7 +171,7 @@ class Model(nn.Module):
         print('\n*** Building model ***')
         # self.node_dim = node_dim
         # self.edge_dim = edge_dim
-        print('self.g[0].edata', self.g[0].edata)
+        # print('self.g[0].edata', self.g[0].edata)
         # self.node_dim = self.g[0].ndata[GNN_NODE_TYPES_KEY].shape[1] + self.g[0].ndata[GNN_NODE_LABELS_KEY].shape[1]
 
         ''' because self.g[0].ndata[GNN_NODE_LABELS_KEY] will be passed through Embedding layer '''
