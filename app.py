@@ -43,6 +43,7 @@ class App:
         self.seq_max_length = data[MAX_N_NODES]
         self.learning_config = learning_config
         self.pretrained_weight = pretrained_weight
+        self.is_cuda = learning_config['cuda']
 
         with open(vocab_path+'/../mapping.json', 'r') as f:
             self.mapping = json.load(f)
@@ -67,7 +68,7 @@ class App:
                            n_classes=data_nclasses,
                            n_rels=data_nrels,
                            n_entities=data_nentities,
-                           is_cuda=learning_config['cuda'],
+                           is_cuda=self.is_cuda,
                            seq_dim=self.seq_max_length,
                            batch_size=1,
                            json_path=json_path,
@@ -82,7 +83,7 @@ class App:
             odir = 'output/'+time.strftime("%Y-%m-%d_%H-%M-%S")
         self.odir = odir
 
-    def train(self, save_path='', k_fold=10, split_train_test=True):
+    def train(self, save_path='', k_fold=10, train_list_file=None, test_list_file=None):
         if self.pretrained_weight is not None:
             self.model = load_checkpoint(self.model, self.pretrained_weight)
 
@@ -99,19 +100,65 @@ class App:
         labels = self.labels[random_indices]
         graphs_names = [self.graphs_names[i] for i in random_indices]
 
-        # Split train and test
-        if split_train_test is True:
-            train_size = int(self.TRAIN_SIZE * len(graphs))
-        else:
-            train_size = len(graphs)
-        g_train = graphs[:train_size]
-        l_train = labels[:train_size]
-        n_train = graphs_names[:train_size]
 
-        g_test = graphs[train_size:]
-        l_test = labels[train_size:]
-        n_test = graphs_names[train_size:]
+        split_train_test = True if train_list_file is None and test_list_file is None else False 
+        print('split_train_test', split_train_test)
+        print('train_list_file', train_list_file)
+        print('test_list_file', test_list_file)
+
+        if split_train_test is True:
+            #############################
+            # Create new train/test set
+            # Split train and test
+            #############################
+            train_size = int(self.TRAIN_SIZE * len(graphs))
+            g_train = graphs[:train_size]
+            l_train = labels[:train_size]
+            n_train = graphs_names[:train_size]
+
+            g_test = graphs[train_size:]
+            l_test = labels[train_size:]
+            n_test = graphs_names[train_size:]
             
+        else:
+            #############################
+            # Load train and test graphs from list
+            #############################
+            train_files = []
+            test_files = []
+            g_train = []
+            l_train = []
+            n_train = []
+            g_test = []
+            l_test = []
+            n_test = []
+            with open('data/train_list.txt', 'r') as f:
+                train_files = [l.strip() for l in f.readlines()]
+            with open('data/test_list.txt', 'r') as f:
+                test_files = [l.strip() for l in f.readlines()]
+            
+            for i in range(len(labels)):
+                graph_jsonpath = graphs_names[i]
+                # print(graph_jsonpath)
+                if graph_jsonpath in train_files:
+                    g_train.append(graphs[i])
+                    l_train.append(labels[i])
+                    n_train.append(graphs_names[i])
+                if graph_jsonpath in test_files:
+                    g_test.append(graphs[i])
+                    l_test.append(labels[i])
+                    n_test.append(graphs_names[i])
+
+            l_train = torch.Tensor(l_train).type(torch.LongTensor)
+            l_test = torch.Tensor(l_test).type(torch.LongTensor)
+            if self.is_cuda is True:
+                l_train = l_train.cuda()
+                l_test = l_test.cuda()
+
+
+        # print('len g_train', len(g_train))
+        # print('g_train', g_train)
+        
 
         if not os.path.isdir(self.odir):
             os.makedirs(self.odir)

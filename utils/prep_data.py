@@ -259,8 +259,10 @@ class PrepareData(object):
         for report_dir_name in os.listdir(self.reports_parent_dir_path):
             report_dir_path = os.path.join(
                 self.reports_parent_dir_path, report_dir_name)
+            n = 0
             for report_file_name in os.listdir(report_dir_path):
-                # print('report_file_name', report_dir_name+'/'+report_file_name)
+                n += 1
+                print(n, 'report_file_name', report_dir_name+'/'+report_file_name)
                 behavior = self.read_report(os.path.join(
                     report_dir_path, report_file_name))
 
@@ -494,10 +496,10 @@ class PrepareData(object):
                     self.edge(connect_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
         
         # Actually we don't care about those API that do not reference process_identifier to any process_identifier, so just comment these
-        # else:
-        #     # create edge from this api to proc node (parent_node)
-        #     # but because this is process, this edge is the same with the edge created above (from node_api__data to connect_node)
-        #     self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
+        else:
+            # create edge from this api to proc node (parent_node)
+            # but because this is process, this edge is the same with the edge created above (from node_api__data to connect_node)
+            self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_process'}, graph_name, buffer_size=buffer_length)
                 
 
     def process_API_file(self, api, api_info, parent_node, graph_name, graph_label):
@@ -568,7 +570,7 @@ class PrepareData(object):
                 self.edge(connect_node, node_api__data, {'edge_type': 'proc_file'}, graph_name, buffer_size=buffer_length)
 
         # create edge from this api to proc node (parent_node)
-        # self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_file'}, graph_name)
+        self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_file'}, graph_name)
 
 
 
@@ -642,7 +644,7 @@ class PrepareData(object):
                 self.edge(connect_node, node_api__data, {'edge_type': 'proc_reg'}, graph_name, buffer_size=buffer_length)
 
         # create edge from this api to proc node (parent_node)
-        # self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_reg'}, graph_name)
+        self.edge(parent_node, node_api__data, {'api_flags': api_flags, 'edge_type': 'proc_reg'}, graph_name)
 
 
 
@@ -986,6 +988,8 @@ class PrepareData(object):
 
                 # Save this graph to png
                 # if gnum < 10:
+                json_file_size = os.path.getsize(self.reports_parent_dir_path+'/'+g_label+'/'+g_name.split('__')[1])
+                # if json_file_size // 1000000 <= 250: # 250000000
                 if False:
                     # print(graph)
                     # nx.draw(graph.to_networkx(), with_labels=True)
