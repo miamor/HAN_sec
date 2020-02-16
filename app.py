@@ -36,7 +36,7 @@ class App:
     
     TRAIN_SIZE = 0.7
 
-    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, odir=None):
+    def __init__(self, data, model_config, learning_config, pretrained_weight, early_stopping=True, patience=100, json_path=None, vocab_path=None, mapping_path=None, odir=None):
         self.data = data
         self.model_config = model_config
         # max length of a sequence (max nodes among graphs)
@@ -45,7 +45,8 @@ class App:
         self.pretrained_weight = pretrained_weight
         self.is_cuda = learning_config['cuda']
 
-        with open(vocab_path+'/../mapping.json', 'r') as f:
+        # with open(vocab_path+'/../mapping.json', 'r') as f:
+        with open(mapping_path, 'r') as f:
             self.mapping = json.load(f)
 
         self.labels = self.data[LABELS]
