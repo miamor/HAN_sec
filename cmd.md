@@ -33,6 +33,7 @@ python3 main.py \
  -d data/obn_iapi/data \
  -p data/obn_iapi/pickle \
  -v data/obn_iapi/vocab \
+ -m data/mapping_benign_malware.json \
  -fp True \
  -a True \
 train \
@@ -42,6 +43,7 @@ train \
 python3 main.py \
  -p data/obn_iapi/pickle \
  -v data/obn_iapi/vocab \
+ -m data/mapping_benign_malware.json \
  -fp True \
 train \
  --lr 0.001 --weight_decay 0.001 --batch_size 512 --k_fold 20
@@ -54,8 +56,9 @@ python3 main.py \
  -d data/obn_iapi/pickle \
  -p data/obn_iapi/pickle \
  -v data/obn_iapi/vocab \
+ -m data/mapping_benign_malware.json \
  -fp True \
-test_data \
+test \
  -o __save_results/8925_obn_iapi
 
 
@@ -63,6 +66,7 @@ test_data \
 python3 main.py \
  -p data/n_iapi/pickle \
  -v data/obn_iapi/vocab \
+ -m data/mapping_benign_malware.json \
  -fp True \
 test_data \
  -o __save_results/8925_obn_iapi

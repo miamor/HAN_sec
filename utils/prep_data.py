@@ -689,26 +689,6 @@ class PrepareData(object):
         ----------------------------
             Calculate node attributes (init features)
             All nodes must have same features space.
-            Declare a space whereas:
-              - 5 first elements represent node type
-                  (one-hot encoding for 5 types)
-
-              - Next 10 elements represent the node name
-                  (api name / proc name) (use word embedding)
-
-              - Next 5 element represent the path_severity
-                  for the "proc" node (one-hot encoding for 5 levels)
-              - Next 5 element represent the regkey_written_severity
-                  for the "proc" node (one-hot encoding for 5 levels)
-              - Next 5 element represent the dll_loaded_severity
-                  for the "proc" node (one-hot encoding for 5 levels)
-              - Next 5 element represent the connects_host_severity
-                  for the "proc" node (one-hot encoding for 5 levels)
-
-              - Next 5 element represent the args_severity
-                  for the "api" node (one-hot encoding for 5 levels)
-              - Next 5 element represent the flags_severity
-                  for the "api" node (one-hot encoding for 5 levels)
         """
         # =======================================
         # Encode node name using Word Embedding
@@ -996,7 +976,7 @@ class PrepareData(object):
                     # plt.savefig('data/graphs/{}.png'.format(g_name))
                     # print(self.graphs_viz[g_name].source)
                     self.graphs_viz[g_name].render(
-                        filename='data/graphviz/{}/{}'.format(os.path.basename(self.reports_parent_dir_path), g_name))
+                        filename='data/graphviz/{}_edge/{}'.format(os.path.basename(self.reports_parent_dir_path), g_name))
                 gnum += 1
 
         # print(self.graphs)
