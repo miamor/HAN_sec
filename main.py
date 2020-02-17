@@ -57,7 +57,7 @@ def run_app(args, data, cuda):
         learning_config = {'lr': args.lr, 'epochs': args.epochs,
                            'weight_decay': args.weight_decay, 'batch_size': args.batch_size, 'cuda': cuda}
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=50, json_path=args.input_data_file, vocab_path=args.vocab_path, 
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, 
                   mapping_path=args.mapping_path, odir=odir)
         print('\n*** Start training ***\n')
         ''' save config to output '''
@@ -84,7 +84,7 @@ def run_app(args, data, cuda):
             args.checkpoint_file = odir+'/checkpoint'
 
         app = App(data, model_config=config_params[0], learning_config=learning_config,
-                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=80, json_path=args.input_data_file, vocab_path=args.vocab_path, 
+                  pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, 
                   mapping_path=args.mapping_path, odir=odir)
         app.test(args.checkpoint_file)
 
@@ -103,7 +103,7 @@ def run_app_2(args, data, cuda):
     learning_config = {'cuda': cuda}
 
     app = App(data, model_config=config_params[0], learning_config=learning_config,
-              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=80, json_path=args.input_data_file, vocab_path=args.vocab_path, 
+              pretrained_weight=args.checkpoint_file, early_stopping=True, patience=20, json_path=args.input_data_file, vocab_path=args.vocab_path, 
               mapping_path=args.mapping_path)
     app.test_on_data(args.checkpoint_file)
 
