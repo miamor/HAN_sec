@@ -301,7 +301,17 @@ class App:
         # acc = self.accuracies
         graphs = self.data[GRAPH]
         labels = self.labels
+
         self.run_test(graphs, labels)
+        # batch_size = 1024
+        # batch_num = len(graphs) // batch_size
+        # print('batch_num', batch_num)
+        # for batch in range(batch_num):
+        #     start = (batch)*batch_size
+        #     end = (batch+1)*batch_size
+        #     graphs = graphs[start:end]
+        #     print(batch, len(graphs))
+        #     self.run_test(graphs, labels)
 
 
     def run_test(self, graphs, labels):
