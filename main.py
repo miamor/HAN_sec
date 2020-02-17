@@ -62,8 +62,10 @@ def run_app(args, data, cuda):
         print('\n*** Start training ***\n')
         ''' save config to output '''
         shutil.copy(src=args.config_fpath, dst=odir+'/'+args.config_fpath.split('/')[-1])
+        shutil.copy(src='utils/prep_data.py', dst=odir+'/prep_data.py')
+        shutil.copy(src='models/model_edgnn.py', dst=odir+'/model_edgnn.py')
         ''' train '''
-        app.train(default_path, k_fold=args.k_fold, split_train_test=args.split_train_test)
+        app.train(default_path, k_fold=args.k_fold, train_list_file=args.train_list_file, test_list_file=args.test_list_file)
         app.test(default_path)
         # remove_model(default_path)
 
@@ -148,6 +150,8 @@ if __name__ == "__main__":
 
     parser.add_argument("-sj", "--save_json", type=bool, default=True)
     parser.add_argument("-s", "--split_train_test", type=bool, default=False)
+    parser.add_argument("-train", "--train_list_file", default=None)
+    parser.add_argument("-test", "--test_list_file", default=None)
     parser.add_argument("--encode_edge_data", type=bool, default=True)
 
     args = parser.parse_args()

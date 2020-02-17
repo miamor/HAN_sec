@@ -84,7 +84,7 @@ class App:
             odir = 'output/'+time.strftime("%Y-%m-%d_%H-%M-%S")
         self.odir = odir
 
-    def train(self, save_path='', k_fold=10, split_train_test=True):
+    def train(self, save_path='', k_fold=10, train_list_file=None, test_list_file=None):
         if self.pretrained_weight is not None:
             self.model = load_checkpoint(self.model, self.pretrained_weight)
 
@@ -102,8 +102,10 @@ class App:
         graphs_names = [self.graphs_names[i] for i in random_indices]
 
 
-
+        split_train_test = True if train_list_file is None and test_list_file is None else False 
         print('split_train_test', split_train_test)
+        print('train_list_file', train_list_file)
+        print('test_list_file', test_list_file)
 
         if split_train_test is True:
             #############################
@@ -131,9 +133,9 @@ class App:
             g_test = []
             l_test = []
             n_test = []
-            with open('data/train_list.txt', 'r') as f:
+            with open(train_list_file, 'r') as f:
                 train_files = [l.strip() for l in f.readlines()]
-            with open('data/test_list.txt', 'r') as f:
+            with open(test_list_file, 'r') as f:
                 test_files = [l.strip() for l in f.readlines()]
             
             for i in range(len(labels)):
@@ -299,7 +301,17 @@ class App:
         # acc = self.accuracies
         graphs = self.data[GRAPH]
         labels = self.labels
+
         self.run_test(graphs, labels)
+        # batch_size = 1024
+        # batch_num = len(graphs) // batch_size
+        # print('batch_num', batch_num)
+        # for batch in range(batch_num):
+        #     start = (batch)*batch_size
+        #     end = (batch+1)*batch_size
+        #     graphs = graphs[start:end]
+        #     print(batch, len(graphs))
+        #     self.run_test(graphs, labels)
 
 
     def run_test(self, graphs, labels):
