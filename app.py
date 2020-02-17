@@ -132,9 +132,9 @@ class App:
             g_test = []
             l_test = []
             n_test = []
-            with open('data/train_list.txt', 'r') as f:
+            with open(train_list_file, 'r') as f:
                 train_files = [l.strip() for l in f.readlines()]
-            with open('data/test_list.txt', 'r') as f:
+            with open(test_list_file, 'r') as f:
                 test_files = [l.strip() for l in f.readlines()]
             
             for i in range(len(labels)):
