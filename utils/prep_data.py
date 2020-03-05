@@ -296,6 +296,7 @@ class PrepareData(object):
     def load_data_json(self):
         for key in self.json_data_paths:
                 with open(self.json_data_paths[key]) as json_file:
+                    print('Load '+self.json_data_paths[key])
                     self.json_data[key] = json.load(json_file)
 
     def encode_report(self, behavior, report_name, report_folder):
@@ -968,7 +969,7 @@ class PrepareData(object):
 
                 # Save this graph to png
                 # if gnum < 10:
-                json_file_size = os.path.getsize(self.reports_parent_dir_path+'/'+g_label+'/'+g_name.split('__')[1])
+                # json_file_size = os.path.getsize(self.reports_parent_dir_path+'/'+g_label+'/'+g_name.split('__')[1])
                 # if json_file_size // 1000000 <= 250: # 250000000
                 if False:
                     # print(graph)

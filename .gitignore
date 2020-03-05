@@ -9,6 +9,7 @@ __save_results/*
 __archieved/*
 data/*
 checkpoints/*
+models/config/*
 
 __pycache__
 **/**/*.pyc
