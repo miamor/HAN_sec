@@ -2,8 +2,8 @@ import os
 import json
 import copy
 
-fname = 'cuckoo_ADung_none'
-path = '../../../Dataset/{}'.format(fname)
+fname = 'cuckoo_pack2_unknown'
+path = '../../Dataset/{}'.format(fname)
 allow_cats = ['registry', 'file', 'process']
 
 flags_data = []
@@ -56,6 +56,16 @@ for class_name in os.listdir(path):
                             # print('flag_key', flag_key, ' || flags_keys_data_class[flag_key]', flags_keys_data_class[flag_key])
                             flag_values = flags[flag_key].split('|')
 
+                            if flag_key not in flags_data_tags:
+                                flags_data_tags.append(flag_key)
+                            if flag_key not in flags_data_tags_class:
+                                flags_data_tags_class.append(flag_key)
+
+                            if flag_key not in flags_keys_data:
+                                flags_keys_data[flag_key] = {}
+                            if flag_key not in flags_keys_data_class:
+                                flags_keys_data_class[flag_key] = {}
+
                             for flag_value in flag_values:
                                 if flag_value not in flags_keys_data[flag_key]:
                                     # flags_keys_data[flag_key].append(flag_value)
@@ -67,11 +77,6 @@ for class_name in os.listdir(path):
                                     flags_keys_data_class[flag_key][flag_value] = 0
                                 else:
                                     flags_keys_data_class[flag_key][flag_value] += 1
-
-                                if flag_key not in flags_data_tags:
-                                    flags_data_tags.append(flag_key)
-                                if flag_key not in flags_data_tags_class:
-                                    flags_data_tags_class.append(flag_key)
 
                                 # flag_data = "{} : {}".format(flag_key, flag_value)
 
@@ -86,7 +91,7 @@ for class_name in os.listdir(path):
         f.write('\n'.join(sorted(flags_data_tags_class)))
 
 
-    flags_keys_data_class = {key: {k: flags_keys_data_class[k] for k in sorted(flags_keys_data_class)} for key in sorted(flags_keys)}
+    flags_keys_data_class = {key: {k: flags_keys_data_class[k] for k in sorted(flags_keys_data_class[key])} for key in sorted(flags_keys)}
     with open('analyze/{}__flags_data__{}.json'.format(fname, class_name), 'w') as f:
         json.dump(flags_keys_data_class, f)
 
@@ -94,7 +99,7 @@ with open('analyze/{}__flags_data_tags.txt'.format(fname), 'w') as f:
     f.write('\n'.join(sorted(flags_data_tags)))
 
 # flags_keys_data = {k: flags_keys_data[k] for k in sorted(flags_keys_data)}
-flags_keys_data = {key: {k: flags_keys_data[k] for k in sorted(flags_keys_data)} for key in sorted(flags_keys)}
+flags_keys_data = {key: {k: flags_keys_data[k] for k in sorted(flags_keys_data[key])} for key in sorted(flags_keys)}
 with open('analyze/{}__flags_data.json'.format(fname), 'w') as f:
     json.dump(flags_keys_data, f)
 
