@@ -1,7 +1,15 @@
 {
     "layer_type": "edGNNLayer",
     "layer_params": {
+<<<<<<< HEAD
         "n_units": [8,8],
+=======
+<<<<<<< HEAD
+        "n_units": [8,8],
+=======
+        "n_units": [8,10],
+>>>>>>> a04b8e252ebf1ec35a319bbacdcca048c392e7a3
+>>>>>>> d31e6b1187a8ed2a71bd21bec9312deda1042928
         "activation": ["relu", "relu", "relu"]
     }
 }

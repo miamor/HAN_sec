@@ -1,0 +1,1878 @@
+{
+    "allocation_type": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "control_code": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "create_disposition": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "create_options": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "creation_flags": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "desired_access": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "file_attributes": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "information_class": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "open_options": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "protection": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "reg_type": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "share_access": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "status_info": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    },
+    "win32_protect": {
+        "allocation_type": {
+            "MEM_COMMIT": 99928,
+            "": 16585,
+            "MEM_RESERVE": 8309,
+            "MEM_WRITE_WATCH": 5,
+            "MEM_TOP_DOWN": 3,
+            "MEM_RESET": 28
+        },
+        "control_code": {
+            "": 78731
+        },
+        "create_disposition": {
+            "FILE_OPEN": 49609,
+            "FILE_CREATE": 2595,
+            "FILE_OVERWRITE_IF": 1442,
+            "FILE_OPEN_IF": 4659
+        },
+        "create_options": {
+            "FILE_NON_DIRECTORY_FILE": 51884,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 51621,
+            "FILE_DELETE_ON_CLOSE": 77,
+            "FILE_SEQUENTIAL_ONLY": 596,
+            "": 6292,
+            "FILE_RANDOM_ACCESS": 353,
+            "FILE_DIRECTORY_FILE": 17,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 100,
+            "FILE_OPEN_REPARSE_POINT": 48,
+            "FILE_WRITE_THROUGH": 28
+        },
+        "creation_flags": {
+            "CREATE_NEW_CONSOLE": 13,
+            "CREATE_SUSPENDED": 6,
+            "CREATE_UNICODE_ENVIRONMENT": 12,
+            "CREATE_BREAKAWAY_FROM_JOB": 5,
+            "": 20,
+            "CREATE_DEFAULT_ERROR_MODE": 14,
+            "NORMAL_PRIORITY_CLASS": 6
+        },
+        "desired_access": {
+            "READ_CONTROL": 3230,
+            "": 6211,
+            "FILE_READ_ATTRIBUTES": 52718,
+            "SYNCHRONIZE": 52753,
+            "GENERIC_WRITE": 7271,
+            "DELETE": 1756,
+            "FILE_READ_DATA": 11418,
+            "FILE_LIST_DIRECTORY": 11418,
+            "FILE_READ_EA": 492,
+            "FILE_EXECUTE": 658,
+            "FILE_TRAVERSE": 658,
+            "GENERIC_EXECUTE": 3273,
+            "FILE_WRITE_DATA": 826,
+            "FILE_WRITE_ATTRIBUTES": 379,
+            "STANDARD_RIGHTS_REQUIRED": 1666,
+            "WRITE_DAC": 1666,
+            "WRITE_OWNER": 1666,
+            "MAXIMUM_ALLOWED": 141,
+            "FILE_WRITE_EA": 1,
+            "FILE_APPEND_DATA": 1
+        },
+        "file_attributes": {
+            "": 2863,
+            "FILE_ATTRIBUTE_NORMAL": 53141,
+            "FILE_ATTRIBUTE_TEMPORARY": 44,
+            "FILE_ATTRIBUTE_HIDDEN": 53,
+            "FILE_ATTRIBUTE_ARCHIVE": 2651,
+            "FILE_ATTRIBUTE_SYSTEM": 12,
+            "FILE_ATTRIBUTE_NOT_CONTENT_INDEXED": 17
+        },
+        "information_class": {
+            "KeyValuePartialInformation": 8891,
+            "KeyBasicInformation": 3503,
+            "FileStandardInformation": 3663,
+            "KeyValueBasicInformation": 4347,
+            "KeyValueFullInformation": 2214,
+            "FilePipeInformation": 99,
+            "FileCompletionInformation": 105,
+            "FileBothDirectoryInformation": 713,
+            "FileBasicInformation": 1173,
+            "FileNameInformation": 42,
+            "FileEaInformation": 30,
+            "FileEndOfFileInformation": 212,
+            "FileDirectoryInformation": 5,
+            "FileAllocationInformation": 1
+        },
+        "open_options": {
+            "FILE_NON_DIRECTORY_FILE": 4779,
+            "FILE_SYNCHRONOUS_IO_NONALERT": 15218,
+            "FILE_DIRECTORY_FILE": 10199,
+            "FILE_OPEN_FOR_BACKUP_INTENT": 10265,
+            "FILE_OPEN_REPARSE_POINT": 368,
+            "FILE_SYNCHRONOUS_IO_ALERT": 1
+        },
+        "protection": {
+            "PAGE_READWRITE": 113232,
+            "PAGE_EXECUTE_READWRITE": 401,
+            "PAGE_EXECUTE_READ": 5536,
+            "PAGE_NOACCESS": 261,
+            "PAGE_GUARD": 316,
+            "PAGE_READONLY": 57,
+            "PAGE_EXECUTE_WRITECOPY": 12,
+            "PAGE_EXECUTE": 3
+        },
+        "reg_type": {
+            "REG_SZ": 30031,
+            "": 11353,
+            "REG_NONE": 6941,
+            "REG_DWORD": 5450,
+            "REG_BINARY": 2882,
+            "REG_EXPAND_SZ": 1642,
+            "REG_MULTI_SZ": 783,
+            "REG_QWORD": 4
+        },
+        "share_access": {
+            "FILE_SHARE_READ": 70083,
+            "FILE_SHARE_WRITE": 53269,
+            "FILE_SHARE_DELETE": 5021,
+            "": 3550
+        },
+        "status_info": {
+            "FILE_OPENED": 34135,
+            "FILE_CREATED": 1658,
+            "": 35325,
+            "FILE_SUPERSEDED": 2390,
+            "FILE_OVERWRITTEN": 181
+        },
+        "win32_protect": {
+            "PAGE_READONLY": 15567,
+            "PAGE_READWRITE": 1024,
+            "PAGE_NOACCESS": 5,
+            "PAGE_WRITECOPY": 0
+        }
+    }
+}
