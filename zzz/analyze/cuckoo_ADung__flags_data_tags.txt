@@ -1,0 +1,14 @@
+allocation_type
+control_code
+create_disposition
+create_options
+creation_flags
+desired_access
+file_attributes
+information_class
+open_options
+protection
+reg_type
+share_access
+status_info
+win32_protect
